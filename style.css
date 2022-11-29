@@ -1,0 +1,97 @@
+body {
+	background-image: linear-gradient(to bottom right, #F6C2CB, #730973);
+}
+
+h1 {
+	color: white;
+}
+
+p {
+	color: white;
+	text-shadow: 0 0 1px black, 0 0 3px black;
+}
+
+.menuButton, .menuButton:hover {
+	color: white;
+	background-color: rgba(162,75,147,0.7);
+	border-radius: 15px;	
+	border: none;
+	padding: 10px;
+	text-decoration: none;
+}
+
+.logo {
+	text-align: center;
+}
+
+.errorMessage {
+	color: yellow;
+	margin-top: 20px;
+}
+
+.login-bar {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 12px;
+	text-align: right;
+	display: inline;
+}
+
+.navigation-bar {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 12px;
+	text-align: left;
+	display: inline;
+}
+
+.top-bar {
+	background-color: rgba(162, 75, 147, 0.3);
+	width:100%;
+	height:50px;
+}
+
+.navbar-header {
+	background-color: rgba(128, 0, 128, 0.1);
+	padding: 15px;
+	width: 75%;
+	text-align: center;
+	border-radius: 15px;
+	margin-left: 12.5%;
+	margin-top: 20px;
+}
+
+.header-container {
+	width: 100%;
+}
+
+.main {
+	width: 80%;
+	margin-left: 10%;
+	border-radius: 15px;	
+}
+
+.button, .button:hover {
+	color: white;
+	background-color: purple;
+	border-radius: 30px;	
+	border: none;
+	padding: 15px;
+}
+
+.purple-boxed {
+	background-color: rgba(128, 0, 128, 0.1);
+	display: inline-block;
+	padding: 15px;
+	border-radius: 15px;
+}
+
+.purple-bg {
+	background-color: rgba(128, 0, 128, 0.1);
+	padding: 15px;
+	border-radius: 15px;	
+}
+
+.form-label {
+	margin-top:20px;
+}
