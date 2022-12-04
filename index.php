@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<script src="home.js"></script>
+		<script src="functions.js"></script>
 	</head>
 	<div class="main">
 		<div class="row" style="margin-top:15px;">

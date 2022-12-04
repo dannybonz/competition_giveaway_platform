@@ -6,8 +6,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!--Required for Bootstrap-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> <!--Required for Bootstrap-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!--Required for jQuery-->
+		<script src="functions.js"></script>
 	</head>
-
+	<img class="loading" src="loading.png">
 	<?php 
 	session_start();
 	if (isset($_SESSION['accountDetails'])) {
@@ -15,20 +16,20 @@
 		//Options that every user has
 		$buttons = array(array(
 			"text" => "Home",
-			"link" => "index.php",
+			"id" => "index",
 		), array(
 			"text" => "View Events",
-			"link" => "events.php",
+			"id" => "events",
 		),array(
 			"text" => "My Page",
-			"link" => "profile.php",
+			"id" => "profile",
 		));
 		
 		//Options for business account
 		if (strcmp($_SESSION["accountDetails"]["accountType"],"Business")==0) {
 			array_push($buttons,array(
 			"text" => "Event Management",
-			"link" => "event_management.php",
+			"id" => "event_management",
 			));
 		}
 		
@@ -36,15 +37,15 @@
 		if (strcmp($_SESSION["accountDetails"]["accountType"],"Admin")==0) {
 			array_push($buttons,array(
 			"text" => "Admin Stuff",
-			"link" => "admin.php",
+			"id" => "admin",
 			));
 		}
 
 		$button_text="";
 		foreach ($buttons as $button) {
-			$button_text .= '<a href="'.$button["link"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>';
+			$button_text .= '<a href="'.$button["id"].'.php" id="'.$button["id"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>';
 		}
-		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>';
+		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>';
 	};?>
 	
 	<div class="header-container row">

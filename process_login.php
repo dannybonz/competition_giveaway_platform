@@ -13,18 +13,15 @@
 
 	$result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountUsername` ='".$username."' AND `accountPassword` = '".$password."'"); //Select matching combination from user table
 	$count = mysqli_num_rows($result); //Count the number of matches
-	echo "<br>";
 	
 	if($count>=1) //If there is a match
 	{
 		$row = mysqli_fetch_assoc($result); //Turn user data into array 
 		session_start(); //Start session
 		$_SESSION['loggedIn'] = "true"; //Set loggedin session value to true
-		$_SESSION['accountID'] = $row["accountID"]; //Store user ID as a session value 
-		$_SESSION['accountName'] = $row["accountName"]; //Store account name as a session value 
-		$_SESSION['accountType'] = $row["accountType"]; //Store account type as a session value 
-		$_SESSION["accountDetails"]=$row;
+		$_SESSION["accountDetails"]=$row; //Store account details as session value
 		header('location:index.php');
+		$_SESSION["mysqli"]=$mysqli;
 	}
 	else //If there is not 1 match, i.e. incorrect combination
 	{

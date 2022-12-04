@@ -1,11 +1,34 @@
 <?php
-	include 'header.php'; //Adds header to top of page and connects to database
+	include 'header.php'; //Adds header to top of page
+	include 'database.php'; //Connects to database
 ?>
 
 <html>
-	<div class="main">
-		<div class="row" style="margin-top:15px;">
-			<h1 class="logo">Here are all the events</h1>
-		</div>
-	</div>
+	<head>
+		<script src="functions.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	</head>
+	<div class="container-fluid"><div class="main">
+	<div class="row">
+	<?php
+		$items_in_row=0;
+
+		$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionStartDate` < CURDATE() AND `competitionEndDate` > CURDATE()"); //Select all events that have started and have not finished (i.e. currently active)
+		if (mysqli_num_rows($result)) {
+			while($row = $result->fetch_assoc()) {  //Loop through each event
+				if ($items_in_row==3) {
+					echo '</div><div class="row">';
+					$items_in_row=0;
+				}
+				echo '<div class="col-sm-4"><div class="event-container" onclick="location.href=\'view_event.php?event='.$row["competitionID"].'\'" style="background-image:url(\'event_img/'.$row["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$row["competitionTitle"].'</p><p class="event-desc">'.$row["competitionDescription"]."</p></div></div></div>"; //Display event location and date
+	//			echo '<div class="col-sm-4"><div class="event-container" style="background-image:url(\'event_img/'.$row["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$row["competitionTitle"].'</p><p class="event-desc">'.$row["competitionDescription"]."</p></div></div></div>"; //Display event location and date
+
+				$items_in_row+=1;
+			}
+		} else {
+			echo '<h1 class="logo">Unfortunately, there are no events you can currently participate in.</h1>';
+		}
+		echo '</div></div>';
+	?>
+
 </html>
