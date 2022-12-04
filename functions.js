@@ -38,6 +38,16 @@ function createAccountPressed() {
 	return false;
 }
 
+function deleteClicked() {
+	$(".main *:not(.confirm-delete)").fadeOut();
+	$(".confirm-delete").fadeIn();
+}
+
+function cancelDelete() {
+	$(".confirm-delete").fadeOut();
+	$(".main *:not(.confirm-delete)").fadeIn();
+}
+
 function updateAccountPressed() {
 	let fullName = $("#inputFullName").val();
 	let email = $("#inputEmail").val();	
@@ -63,7 +73,7 @@ function displayLoad() {
 }
 
 $(window).on("load", function() {
-	$("body").on("click", ".event-container, #events, #submit-entry, #event_management", function(){ //Add event listener for loading screens (used only on functions that need it)
+	$("body").on("click",".event-container,#events,#edit_event,#submit-entry,#save_event,#event_management,#delete", function(){ //Add event listener for loading screens (used only on functions that need it)
 		displayLoad();
 	});
 });

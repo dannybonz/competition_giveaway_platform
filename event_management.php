@@ -9,7 +9,7 @@
 	</head>
 	<div class="container-fluid main">
 		<div style="text-align:center;margin:30px;">
-			<a href="new_event.php" class="button">Create New Event</a>
+			<a href="edit_event.php" class="button">Create New Event</a>
 		</div>
 			<?php 
 				

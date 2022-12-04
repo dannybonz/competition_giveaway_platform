@@ -13,10 +13,10 @@
 
 	$row = mysqli_fetch_assoc($result); //Turn event data into array 
 
-	echo '<html><div class="container-fluid main">
+	echo '<html><body><div class="container-fluid main">
 			<div style="text-align:center;margin:30px;">
-			<a href="new_event.php" class="button">Edit Event Details</a>
-			<a href="new_event.php" class="button" style="margin-left:10px">Delete Event</a>
+			<a id="edit_event" href="edit_event.php?event='.$row["competitionID"].'" class="button">Edit Event Details</a>
+			<button class="button" onclick="deleteClicked()" style="margin-left:10px">Delete Event</button>
 			</div>
 			<h1 class="logo">'.$row["competitionTitle"].'</h1>
 			<p class="event-page-paragraph">Start Date: '.$row["competitionStartDate"].' End Date: '.$row["competitionEndDate"].'<br>';
@@ -58,4 +58,14 @@
 
 ?>
 	</div>
+	<div class="confirm-delete">
+		<div class="purple-boxed" style="text-align:center">
+			<p class="event-page-paragraph">Are you sure you wish to delete this event?</p>
+			<button class="button" onclick="cancelDelete()" style="margin-left:10px">Cancel</button>
+			<?php
+				echo '<a href="process_event_delete.php?event='.$_GET["event"].'" id="delete" class="button" style="margin-left:10px">Delete Event</a>';
+			?>
+		</div>
+	</div>
+</body>
 </html>
