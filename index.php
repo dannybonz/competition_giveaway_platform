@@ -6,7 +6,7 @@
 	<head>
 		<script src="functions.js"></script>
 	</head>
-	<div class="main">
+	<div class="main container-fluid">
 		<div class="row" style="margin-top:15px;">
 			<h1 class="logo">Welcome to the site</h1>
 		</div>
@@ -21,9 +21,9 @@
 
 		<div class="row" style="margin-top:15px;">
 
-			<div class="col-sm-3 col-sm-offset-3">
-				<div class="purple-boxed">
-					<p>Registration</p>
+			<div class="col-sm-4 col-sm-offset-2">
+				<div class="purple-boxed max_width" style="float: none; margin: 0 auto;">
+					<p class="purple_boxed_header">Registration</p>
 					<form method="post" onsubmit="return createAccountPressed()" action="process_register.php">
 						<?php 
 						
@@ -47,17 +47,17 @@
 									echo '<p class="errorMessage" id="returnedMessage">'.$message.'</p>';	
 								}
 								echo '<p class="form-label">Create a username for your account.</p>
-								<input required name="username" type="text" id="inputUsername" placeholder="Enter a username"><br>
+								<input required name="username" class="max_width" type="text" id="inputUsername" placeholder="Enter a username"><br>
 								<p class="form-label">Choose a secure and memorable password.</p>
-								<input required name="password" type="password" id="inputPassword" placeholder="Enter a password"><br>
+								<input required name="password" class="max_width" type="password" id="inputPassword" placeholder="Enter a password"><br>
 								<p class="form-label">Enter your personal email address.</p>
-								<input required name="email" type="email" id="inputEmail" placeholder="Enter an email address"><br>
+								<input required name="email" class="max_width" type="email" id="inputEmail" placeholder="Enter an email address"><br>
 								<p class="form-label">Enter your full name.</p>
-								<input required name="fullname" type="text" id="inputFullName" placeholder="Enter your full name">
+								<input required name="fullname" class="max_width" type="text" id="inputFullName" placeholder="Enter your full name">
 								<p class="form-label">Enter your birthday.</p>
-								<input required name="birthday" type="date" id ="inputBirthday">
+								<input required name="birthday" class="max_width" type="date" id ="inputBirthday">
 								<p class="form-label">Select your gender.</p>
-								<select name="gender" id="gender">
+								<select name="gender" class="max_width" id="gender">
 								  <option value="male">Male</option>
 								  <option value="female">Female</option>
 								  <option value="other">Other / Prefer Not To Say</option>
@@ -71,9 +71,9 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-3">
-				<div class="purple-boxed">
-					<p>Login</p>
+			<div class="col-sm-4">
+				<div class="purple-boxed max_width">
+					<p class="purple_boxed_header">Login</p>
 					<form method="post" action="process_login.php">
 						<?php 
 							if (isset($_GET["e2"])) {
@@ -81,9 +81,9 @@
 							};
 						?>
 						<p class="form-label">Enter your account's username.</p>					
-						<input type="text" required name="username" placeholder="Username"><br>
+						<input type="text" class="max_width" required name="username" placeholder="Username"><br>
 						<p class="form-label">Enter your account's password.</p>
-						<input type="password" required name="password" placeholder="Password"><br>
+						<input type="password" class="max_width" required name="password" placeholder="Password"><br>
 						<input style="margin-top:20px" type="submit" value="Log In" class="button">
 					</form>
 				</div>

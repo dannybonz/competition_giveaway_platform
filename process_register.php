@@ -56,10 +56,10 @@
 	}//*/
 	
 	if ($valid==true) {
-		$salt="1240813048"; //Salt used for encryption 
+		$salt="dc0b2dd4f78221adac85386e9ee57a9047562d5"; //Salt used for encryption 
 		$password = md5($password.$salt); //Encrypt with md5 
-
-		$result = $mysqli -> query("INSERT INTO `tblaccount` (`accountID`,`accountName`,`accountUsername`,`accountType`,`accountPassword`,`accountGender`,`accountEmail`,`accountBirthday`) VALUES (NULL,'".$fullName."','".$username."','Standard','".$password."','".$gender."','".$email."','".$birthday."')"); //Add new member to members table using given values
+		$accountID = uniqid();
+		$result = $mysqli -> query("INSERT INTO `tblaccount` (`accountID`,`accountName`,`accountUsername`,`accountType`,`accountPassword`,`accountGender`,`accountEmail`,`accountBirthday`) VALUES ('".$accountID."','".$fullName."','".$username."','Standard','".$password."','".$gender."','".$email."','".$birthday."')"); //Add new member to members table using given values
 		header ('Location:index.php?registered');
 	}
 	else {

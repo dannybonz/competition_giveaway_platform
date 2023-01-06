@@ -11,6 +11,35 @@ p {
 	text-shadow: 0 0 1px black, 0 0 3px black;
 }
 
+input {
+	border-radius: 10px;
+	border: 0px;
+	padding: 10px;
+}
+
+select {
+	border-radius: 10px;
+	border: 0px;
+	padding: 10px;	
+}
+
+.events_won {
+	padding-bottom: 30px;
+}
+
+.purple_boxed_header {
+	text-align: center;
+	font-weight: bold;
+}
+
+.max_width {
+	width: 100%;
+}
+
+.max_height {
+	height: 100%;
+}
+
 .confirm-delete {
 	display: none;
 	position: fixed;

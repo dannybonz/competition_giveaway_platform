@@ -1,14 +1,9 @@
 <?php
-
-	$host = "localhost";
-	$my_user = "danny";
-	$my_password = "a";
-	$my_db = "events_platform";
-	$mysqli = new mysqli($host, $my_user, $my_password, $my_db); 	//Connect to the Database
-
+	include 'database.php';
+	
 	$username = $_POST["username"]; //Get the submitted username
 	$password = $_POST["password"]; //Get the submitted password
-	$salt="1240813048"; //Use salt to encrypt password
+	$salt="dc0b2dd4f78221adac85386e9ee57a9047562d5"; //Use salt to encrypt password
 	$password = md5($password.$salt);
 
 	$result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountUsername` ='".$username."' AND `accountPassword` = '".$password."'"); //Select matching combination from user table
@@ -23,7 +18,7 @@
 		header('location:index.php');
 		$_SESSION["mysqli"]=$mysqli;
 	}
-	else //If there is not 1 match, i.e. incorrect combination
+	else //If there is not a match, i.e. incorrect combination
 	{
 		header('location:index.php?e2');
 	}

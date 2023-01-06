@@ -69,13 +69,12 @@ function updateAccountPressed() {
 
 function displayLoad() {
 	$("body *:not(.loading)").fadeOut();
-	$(".loading").fadeIn(1000)	
+	$(".loading").fadeIn(500)	
 }
 
-$(window).on("load", function() {
+/*$(window).on("load", function() {
 	$("body").on("click",".event-container,#events,#edit_event,#submit-entry,#save_event,#event_management,#delete", function(){ //Add event listener for loading screens (used only on functions that need it)
 		displayLoad();
 	});
-});
-
+});*/
 

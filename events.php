@@ -14,7 +14,7 @@
 	<?php
 		$items_in_row=0;
 
-		$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionStartDate` < CURDATE() AND `competitionEndDate` > CURDATE()"); //Select all events that have started and have not finished (i.e. currently active)
+		$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionStartDate` <= CURDATE() AND `competitionEndDate` > CURDATE()"); //Select all events that have started and have not finished (i.e. currently active)
 		if (mysqli_num_rows($result)) {
 			while($row = $result->fetch_assoc()) {  //Loop through each event
 				if ($items_in_row==3) {
@@ -22,12 +22,11 @@
 					$items_in_row=0;
 				}
 				echo '<div class="col-sm-4"><div class="event-container" onclick="location.href=\'view_event.php?event='.$row["competitionID"].'\'" style="background-image:url(\'event_img/'.$row["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$row["competitionTitle"].'</p><p class="event-desc">'.$row["competitionDescription"]."</p></div></div></div>"; //Display event location and date
-	//			echo '<div class="col-sm-4"><div class="event-container" style="background-image:url(\'event_img/'.$row["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$row["competitionTitle"].'</p><p class="event-desc">'.$row["competitionDescription"]."</p></div></div></div>"; //Display event location and date
 
 				$items_in_row+=1;
 			}
 		} else {
-			echo '<h1 class="logo">Unfortunately, there are no events you can currently participate in.</h1>';
+			echo '<h1 class="logo" style="margin-top:10%;width:50%;margin-left:25%;">Unfortunately, there are no events you can currently participate in.</h1>';
 		}
 		echo '</div></div>';
 	?>
