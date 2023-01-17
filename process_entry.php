@@ -6,6 +6,6 @@
 		exit();
 	}	
 	$entryID = uniqid();
-	$result = $mysqli -> query("INSERT INTO `tblentry` (`entryID`,`accountID`,`competitionID`,`entryDate`,`entryFilepath`,`entryTextbox`) VALUES ('".$entryID."','".$_SESSION["accountDetails"]["accountID"]."','".$_SESSION["competitionID"]."',now(),'','')"); //Add new entry to entries table using given values
+	$result = $mysqli -> query("INSERT INTO `tblentry` (`entryID`,`accountID`,`competitionID`,`entryDate`,`entryFilepath`,`entryTextbox`) VALUES ('".$entryID."','".$_SESSION["accountDetails"]["accountID"]."','".$_SESSION["competitionID"]."',now(),'','".$_POST["text"]."')"); //Add new entry to entries table using given values
 	header ('Location: view_event.php?event='.$_SESSION["competitionID"])
 ?>

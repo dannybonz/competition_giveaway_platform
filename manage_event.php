@@ -82,7 +82,13 @@
 		while($row = $result->fetch_assoc()) {  //Loop through each entry
 			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$row["accountID"]."'");
 			$account_row = mysqli_fetch_array($account_result); 
-			echo $account_row["accountName"].' ('.$account_row["accountUsername"].'#'.$row["accountID"].') - '.$row["entryDate"].'<br>';
+			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].'#'.$row["accountID"].') - '.$row["entryDate"].'<br>';
+			if ($row["entryTextbox"]!="") {
+				echo '<div class="submitted_expanded">'.$row["entryTextbox"].'</div></div>';	
+			} else {
+				echo '</div>';
+			}
+		
 		}
 		echo '</p>';
 	}
