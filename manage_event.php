@@ -71,14 +71,17 @@
 		} else {
 			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$winner["accountID"]."'");
 			$account_row = mysqli_fetch_assoc($account_result); //Turn winning user data into array 
-			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">Email Address: '.$account_row["accountEmail"].'</p>';						
+			echo '<h1 class="logo">Winning Entry</h1>';		
 			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$winner["entryDate"];
 			echo '<a href="reset_winner.php?event='.$_GET["event"].'" class="set_winner">Unset Winner</a>';
 			if ($winner["entryTextbox"]!="") {
-				echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div></div>';	
-			} else {
-				echo '</div>';
+				echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div>';	
 			}
+			echo '<form method="post" action="process_winner_email.php"><input type="hidden" value="'.$_GET["event"].'" name="competitionID"><div class="submitted_expanded"><textarea required class="textarea_input" style="color:black;" placeholder="Enter email contents" name="emailContents"></textarea>';
+			if (isset($_GET["m"])) {
+				echo '<p class="errorMessage" id="returnedMessage">Your message has been queued succesfully. It will be sent shortly.</p>';
+			}
+			echo '<input type="submit" class="button" style="margin-top:10px;" value="Send Email"></div></form></div>';
 		}
 	}
 
