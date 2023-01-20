@@ -68,6 +68,22 @@ select {
 	margin-top: 10px;
 }
 
+/*used for "Set as Winner" button on Event Management page for events with Custom Choice win method*/
+.set_winner, .set_winner:hover { 
+	background-color: rgba(162,75,147,0.7);
+	color: white;
+	border-radius: 10px;
+	font-size: 20px;
+	transform: translateY(-5px); /*Vertically centers the element*/
+	border-width: 0px;
+	display: inline-block;
+	margin-left: 20px;
+	margin-top: 10px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .confirm-delete {
 	display: none;
 	position: fixed;

@@ -1,8 +1,8 @@
 <?php
 	include 'database.php';
 	
-	$username = $_POST["username"]; //Get the submitted username
-	$password = $_POST["password"]; //Get the submitted password
+	$username = mysql_real_escape_string($_POST["username"]); //Get the submitted username
+	$password = mysql_real_escape_string($_POST["password"]); //Get the submitted password
 	$salt="dc0b2dd4f78221adac85386e9ee57a9047562d5"; //Use salt to encrypt password
 	$password = md5($password.$salt);
 

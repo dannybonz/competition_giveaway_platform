@@ -9,11 +9,11 @@
 
 		$title = mysql_real_escape_string($_POST["title"]);
 		$description = mysql_real_escape_string($_POST["description"]);
-		$deadline = $_POST["deadline"];
-		$start = $_POST["start"];
-		$event = $_POST["event"];
-		$win = $_POST["win"];
-		$text = $_POST["text"];
+		$deadline = mysql_real_escape_string($_POST["deadline"]);
+		$start = mysql_real_escape_string($_POST["start"]);
+		$event = mysql_real_escape_string($_POST["event"]);
+		$win = mysql_real_escape_string($_POST["win"]);
+		$text = mysql_real_escape_string($_POST["text"]);
 
 		$accountID = $_SESSION['accountDetails']['accountID']; 
 

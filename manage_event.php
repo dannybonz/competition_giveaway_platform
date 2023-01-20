@@ -10,7 +10,7 @@
 
 	include 'database.php'; //Connect to database
 	
-	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$_GET["event"]."'");
+	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$_GET["event"]."' AND `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'");
 	$count = mysqli_num_rows($result); //Count the number of matches
 
 	$_SESSION["competitionID"]=$_GET["event"];
@@ -24,6 +24,7 @@
 
 	$win_methods = array(
 		"random" => "Random Selection",
+		"choose" => "Custom Choice"
 	);
 
 	echo '<html><body><div class="container-fluid main">
@@ -62,18 +63,22 @@
 		if ($row["competitionWinningEntry"]=="") {
 			$winner = getWinner($row["competitionID"],$mysqli);
 		} else {
-			$winner_result = $mysqli -> query("SELECT * FROM tblentry WHERE `entryID` ='".$row["competitionWinningEntry"]."'");
-			$winner = mysqli_fetch_assoc($result); //Turn winning entry data into array 
+			$winner_result = $mysqli -> query('SELECT * FROM tblentry WHERE `entryID` ="'.$row["competitionWinningEntry"].'"');
+			$winner = mysqli_fetch_assoc($winner_result); //Turn winning entry data into array 
 		}
 		if ($winner=="no winner") {
-			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">A winner could not be chosen for this competition due to lack of participation.</p>';
+			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">A winner has not been decided for this competition.</p>';
 		} else {
 			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$winner["accountID"]."'");
-			$account_data = mysqli_fetch_assoc($account_result); //Turn winning user data into array 
-			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">';
-			echo 'Entry ID: '.$winner["entryID"].'<br>
-			Submitted by: '.$account_data["accountName"].' ('.$account_data["accountUsername"].'#'.$account_data["accountID"].')<br>
-			Email Address: '.$account_data["accountEmail"].'</p>';						
+			$account_row = mysqli_fetch_assoc($account_result); //Turn winning user data into array 
+			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">Email Address: '.$account_row["accountEmail"].'</p>';						
+			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$winner["entryDate"];
+			echo '<a href="reset_winner.php?event='.$_GET["event"].'" class="set_winner">Unset Winner</a>';
+			if ($winner["entryTextbox"]!="") {
+				echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div></div>';	
+			} else {
+				echo '</div>';
+			}
 		}
 	}
 
@@ -81,14 +86,16 @@
 		echo '<h1 class="logo">Entries Submitted</h1><p class="event-page-paragraph">';
 		while($row = $result->fetch_assoc()) {  //Loop through each entry
 			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$row["accountID"]."'");
-			$account_row = mysqli_fetch_array($account_result); 
-			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].'#'.$row["accountID"].') - '.$row["entryDate"].'<br>';
+			$account_row = mysqli_fetch_assoc($account_result); 
+			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$row["entryDate"];
+			if ($winner=="no winner") {
+				echo '<a href="set_winner.php?event='.$_GET["event"].'&entry='.$row["entryID"].'" class="set_winner">Set as Winner</a>';
+			}
 			if ($row["entryTextbox"]!="") {
 				echo '<div class="submitted_expanded">'.$row["entryTextbox"].'</div></div>';	
 			} else {
 				echo '</div>';
 			}
-		
 		}
 		echo '</p>';
 	}

@@ -7,12 +7,12 @@
 	$mysqli = new mysqli($host, $my_user, $my_password, $my_db); 	//Connect to the Database
 	session_start(); //Start session
 	
-	$username = $_POST["username"];
-	$password = $_POST["password"];
-	$fullName = $_POST["fullname"];
-	$email = $_POST["email"];
-	$birthday = $_POST["birthday"];
-	$gender = $_POST["gender"];
+	$username = mysql_real_escape_string($_POST["username"]);
+	$password = mysql_real_escape_string($_POST["password"]);
+	$fullName = mysql_real_escape_string($_POST["fullname"]);
+	$email = mysql_real_escape_string($_POST["email"]);
+	$birthday = mysql_real_escape_string($_POST["birthday"]);
+	$gender = mysql_real_escape_string($_POST["gender"]);
 	
 	$valid=true;
 	$err_code="0";
