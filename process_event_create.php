@@ -14,12 +14,13 @@
 		$event = mysql_real_escape_string($_POST["event"]);
 		$win = mysql_real_escape_string($_POST["win"]);
 		$text = mysql_real_escape_string($_POST["text"]);
+		$winners = mysql_real_escape_string($_POST["winners"]);
 
 		$accountID = $_SESSION['accountDetails']['accountID']; 
 
 		if ($event=="0") {
 			$competitionID = uniqid();
-			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')");		
+			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')");		
 
 		} else {
 			$competitionID = $event;
@@ -38,7 +39,7 @@
 				exit();
 			}
 
-			$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionTitle` = '".$title."', `competitionTextRequirement` = '".$text."', `competitionWinMethod` = '".$win."', `competitionDescription` = '".$description."', `competitionEndDate` = '".$deadline."', `competitionStartDate` = '".$start."' WHERE `competitionID` = '".$event."'");			
+			$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionWinners` = '".$winners."', `competitionTitle` = '".$title."', `competitionTextRequirement` = '".$text."', `competitionWinMethod` = '".$win."', `competitionDescription` = '".$description."', `competitionEndDate` = '".$deadline."', `competitionStartDate` = '".$start."' WHERE `competitionID` = '".$event."'");			
 		}
 
 		if($_FILES["image"]["error"] == 0) {

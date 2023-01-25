@@ -8,7 +8,7 @@
 		exit();
 	} else {
 		include 'database.php';
-		$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionWinningEntry` = '' WHERE `competitionID` = '".$_GET["event"]."' AND `accountID` = '".$_SESSION["accountDetails"]["accountID"]."'"); //Clear the winning entry field
+		$result = $mysqli -> query("DELETE FROM `tblwinner` WHERE `winnerID` = '".$_GET["winner"]."' AND `competitionID` ='".$_GET["event"]."'"); //Delete the record of this entry winning
 		header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page
 	}
 ?>

@@ -36,6 +36,8 @@
 								$image_req = ""; //Image not required if editing instead of creating
 								$event = $_GET["event"];
 								$text = $row["competitionTextRequirement"];
+								$win = $row["competitionWinMethod"];
+								$winners = $row["competitionWinners"];
 							}
 						} else {
 							header("Location: error.php?e=2");
@@ -51,6 +53,8 @@
 						$button = "Create Event";
 						$image_req = "required";
 						$event = "0";
+						$win = "random";
+						$winners = "";
 					}
 					
 					echo '<form method="post" action="process_event_create.php" enctype="multipart/form-data">
@@ -78,9 +82,22 @@
 					
 					echo '</select><br>
 						<p class="form-label">Choose how the winner will be decided.</p>
-						<select name="win" id="win">
-						  <option value="random">Random Selection</option>
-						</select><br>
+						<select name="win" id="win">';
+
+					$winDescriptions = array("random" => "Random Selection","choose" => "Custom Choice");
+					
+					foreach ($winDescriptions as $key => $description) {
+						if (strcmp($win,$key)==0) {
+							echo '<option selected value="'.$key.'">'.$description.'</option>';
+						}
+						else {
+							echo '<option value="'.$key.'">'.$description.'</option>';								
+						}
+					}
+
+					echo '</select><br>
+						<p class="form-label">Enter how many winners your event will have.</p>
+						<input type="number" name="winners" id="winners" placeholder="Number of winners" value="'.$winners.'">
 						<p class="form-label">'.$image.'</p>
 						<input '.$image_req.' type="file" name="image" id="image" class="button" style="margin-top:15px"><br>
 						<input type="submit" id="save_event" value="'.$button.'" class="button">

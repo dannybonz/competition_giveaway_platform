@@ -10,8 +10,8 @@
 
 	include 'database.php'; //Connect to database
 	
-	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$_GET["event"]."' AND `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'");
-	$count = mysqli_num_rows($result); //Count the number of matches
+	$result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$_GET["event"]."' AND `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'");
+	$count=mysqli_num_rows($result); //Count the number of matches
 
 	$_SESSION["competitionID"]=$_GET["event"];
 	
@@ -20,12 +20,14 @@
 		exit();
 	}
 
-	$row = mysqli_fetch_assoc($result); //Turn event data into array 
+	$row=mysqli_fetch_assoc($result); //Turn event data into array 
 
-	$win_methods = array(
+	$win_methods=array(
 		"random" => "Random Selection",
 		"choose" => "Custom Choice"
 	);
+	
+	$max_wins=$row["competitionWinners"];
 
 	echo '<html><body><div class="container-fluid main">
 			<div style="text-align:center;margin:30px;">
@@ -33,13 +35,13 @@
 			<button class="button" onclick="deleteClicked()" style="margin-left:10px">Delete Event</button>
 			</div>
 			<h1 class="logo">'.$row["competitionTitle"].'</h1>
-			<p class="event-page-paragraph">Win Method: '.$win_methods[$row["competitionWinMethod"]].'<br>Start Date: '.$row["competitionStartDate"].' End Date: '.$row["competitionEndDate"].'<br>';
+			<p class="event-page-paragraph">Win Method: '.$win_methods[$row["competitionWinMethod"]].' ('.$max_wins.' will win)<br>Start Date: '.$row["competitionStartDate"].' End Date: '.$row["competitionEndDate"].'<br>';
 
-	$now = new DateTime();
-	$start = $row["competitionStartDate"];
-	$end = $row["competitionEndDate"];
-	$start_difference = $now->diff(new DateTime($start));
-	$end_difference = $now->diff(new DateTime($end));
+	$now=new DateTime();
+	$start=$row["competitionStartDate"];
+	$end=$row["competitionEndDate"];
+	$start_difference=$now->diff(new DateTime($start));
+	$end_difference=$now->diff(new DateTime($end));
 
 	if (strtotime($row["competitionStartDate"]) > time()) {
 		echo 'Starts in '.$start_difference->days.' days. ';
@@ -54,50 +56,64 @@
 		echo 'Ended '.$end_difference->days.' days ago.';
 	}
 
-	$result = $mysqli -> query("SELECT * FROM tblentry WHERE `competitionID` ='".$_GET["event"]."'");
-	$count = mysqli_num_rows($result); //Count the number of matches
+	$result=$mysqli -> query("SELECT * FROM tblentry WHERE `competitionID` ='".$_GET["event"]."'");
+	$count=mysqli_num_rows($result); //Count the number of matches
 		
 	echo '<br><b>'.$count.'</b> entries submitted.</p>';
 
+	$winners_result=$mysqli -> query("SELECT * FROM tblwinner WHERE `competitionID` ='".$_GET["event"]."'");
+	$winner_count=mysqli_num_rows($winners_result);
+	$winner_ids=array();
+
 	if (strtotime($row["competitionEndDate"]) <= time()) {
-		if ($row["competitionWinningEntry"]=="") {
-			$winner = getWinner($row["competitionID"],$mysqli);
+		
+		if ($winner_count==0 and $row["competitionWinMethod"]=="Random") {
+			$winner=getWinner($row["competitionID"],$mysqli);
+		} else if ($winner_count==0) {
+			$winner=false;
 		} else {
-			$winner_result = $mysqli -> query('SELECT * FROM tblentry WHERE `entryID` ="'.$row["competitionWinningEntry"].'"');
-			$winner = mysqli_fetch_assoc($winner_result); //Turn winning entry data into array 
+			$winner=true;
 		}
-		if ($winner=="no winner") {
-			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">A winner has not been decided for this competition.</p>';
+
+		if ($winner==false) {
+			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">A winner has not yet been decided for this competition.</p>';
 		} else {
-			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$winner["accountID"]."'");
-			$account_row = mysqli_fetch_assoc($account_result); //Turn winning user data into array 
-			echo '<h1 class="logo">Winning Entry</h1>';		
-			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$winner["entryDate"];
-			echo '<a href="reset_winner.php?event='.$_GET["event"].'" class="set_winner">Unset Winner</a>';
-			if ($winner["entryTextbox"]!="") {
-				echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div>';	
+			echo '<h1 class="logo">Winning Entries</h1>';	
+			while($winners_row=$winners_result->fetch_assoc()) {  //Loop through each winning entry
+				$entry_result=$mysqli -> query("SELECT * FROM tblentry WHERE `entryID` ='".$winners_row["entryID"]."'");
+				$winner=mysqli_fetch_assoc($entry_result);
+				$account_result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$winner["accountID"]."'");
+				$account_row=mysqli_fetch_assoc($account_result); //Turn winning user data into array 
+				echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$winner["entryDate"];
+				echo '<a href="reset_winner.php?event='.$_GET["event"].'&winner='.$winners_row["winnerID"].'" class="set_winner">Unset Winner</a>';
+				if ($winner["entryTextbox"]!="") {
+					echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div>';	
+				}
+				echo '<form method="post" action="process_winner_email.php"><input type="hidden" value="'.$_GET["event"].'" name="competitionID"><div class="submitted_expanded"><textarea required class="textarea_input" style="color:black;" placeholder="Enter email contents" name="emailContents"></textarea>';
+				if (isset($_GET["m"])) {
+					echo '<p class="errorMessage" id="returnedMessage">Your message has been queued succesfully. It will be sent shortly.</p>';
+				}
+				echo '<input type="submit" class="button" style="margin-top:10px;" value="Send Email"></div></form></div>';
+				array_push($winner_ids,$winner["entryID"]);
 			}
-			echo '<form method="post" action="process_winner_email.php"><input type="hidden" value="'.$_GET["event"].'" name="competitionID"><div class="submitted_expanded"><textarea required class="textarea_input" style="color:black;" placeholder="Enter email contents" name="emailContents"></textarea>';
-			if (isset($_GET["m"])) {
-				echo '<p class="errorMessage" id="returnedMessage">Your message has been queued succesfully. It will be sent shortly.</p>';
-			}
-			echo '<input type="submit" class="button" style="margin-top:10px;" value="Send Email"></div></form></div>';
 		}
 	}
 
 	if ($count) {
 		echo '<h1 class="logo">Entries Submitted</h1><p class="event-page-paragraph">';
-		while($row = $result->fetch_assoc()) {  //Loop through each entry
-			$account_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$row["accountID"]."'");
-			$account_row = mysqli_fetch_assoc($account_result); 
-			echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$row["entryDate"];
-			if ($winner=="no winner") {
-				echo '<a href="set_winner.php?event='.$_GET["event"].'&entry='.$row["entryID"].'" class="set_winner">Set as Winner</a>';
-			}
-			if ($row["entryTextbox"]!="") {
-				echo '<div class="submitted_expanded">'.$row["entryTextbox"].'</div></div>';	
-			} else {
-				echo '</div>';
+		while($row=$result->fetch_assoc()) {  //Loop through each entry
+			if (!(in_array($row["entryID"], $winner_ids))) {
+				$account_result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$row["accountID"]."'");
+				$account_row=mysqli_fetch_assoc($account_result); 
+				echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$row["entryDate"];
+				if ($winner_count<$max_wins) {
+					echo '<a href="set_winner.php?event='.$_GET["event"].'&entry='.$row["entryID"].'" class="set_winner">Set as Winner</a>';
+				}
+				if ($row["entryTextbox"]!="") {
+					echo '<div class="submitted_expanded">'.$row["entryTextbox"].'</div></div>';	
+				} else {
+					echo '</div>';
+				}
 			}
 		}
 		echo '</p>';

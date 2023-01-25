@@ -8,7 +8,8 @@
 		exit();
 	} else {
 		include 'database.php';
-		$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionWinningEntry` = '".$_GET["entry"]."' WHERE `competitionID` = '".$_GET["event"]."' AND `accountID` = '".$_SESSION["accountDetails"]["accountID"]."'");
+		$result = $mysqli -> query("INSERT INTO `tblwinner` (`winnerID`,`competitionID`,`entryID`) VALUES ('".uniqid()."','".$_GET["event"]."','".$_GET["entry"]."')"); //Record new winner
 		header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page
+
 	}
 ?>
