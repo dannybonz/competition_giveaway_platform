@@ -11,25 +11,20 @@
 	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` = '".$_POST["competitionID"]."' AND `accountID` = '".$_SESSION["accountDetails"]["accountID"]."'");
 	$count = mysqli_num_rows($result); //Count the number of matches
 	if ($count) {
-		echo 'hi';
 		if (strlen($_POST["emailContents"])>2000) {
 			header("Location: error.php?e=4");
 		} else {
 			$row = mysqli_fetch_assoc($result); //Turn entry data into array 
 			$emailID = uniqid();
 
-			if ($row["competitionWinningEntry"]=="") {
-				header("Location: error.php?e=4"); //No winner has been decided yet
-			} else {
-				$winner_result = $mysqli -> query('SELECT * FROM tblentry WHERE `entryID` ="'.$row["competitionWinningEntry"].'"');
-				$winner = mysqli_fetch_assoc($winner_result); //Turn winning entry data into array 
-			}
+			$winner_result = $mysqli -> query('SELECT * FROM tblentry WHERE `entryID` ="'.$_POST["entryID"].'"');
+			$winner = mysqli_fetch_assoc($winner_result); //Turn winning entry data into array 
 			
 			$result = $mysqli -> query("INSERT INTO `tblemail` (`emailID`,`senderID`,`targetID`,`emailContents`) VALUES ('".$emailID."','".$_SESSION["accountDetails"]["accountID"]."','".$winner["accountID"]."','".mysql_real_escape_string($_POST["emailContents"])."')"); //Add new entry to entries table using given values
 			header ('Location: manage_event.php?event='.$_SESSION["competitionID"].'&m');
 		}
 		
 	} else {
-//		header("Location: error.php?e=2");		
+		header("Location: error.php?e=2");		
 	}
 ?>

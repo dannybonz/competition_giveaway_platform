@@ -89,7 +89,7 @@
 				if ($winner["entryTextbox"]!="") {
 					echo '<div class="submitted_expanded">'.$winner["entryTextbox"].'</div>';	
 				}
-				echo '<form method="post" action="process_winner_email.php"><input type="hidden" value="'.$_GET["event"].'" name="competitionID"><div class="submitted_expanded"><textarea required class="textarea_input" style="color:black;" placeholder="Enter email contents" name="emailContents"></textarea>';
+				echo '<form method="post" action="process_winner_email.php"><input type="hidden" value="'.$winners_row["entryID"].'" name="entryID"><input type="hidden" value="'.$_GET["event"].'" name="competitionID"><div class="submitted_expanded"><textarea required class="textarea_input" style="color:black;" placeholder="Enter email contents" name="emailContents"></textarea>';
 				if (isset($_GET["m"])) {
 					echo '<p class="errorMessage" id="returnedMessage">Your message has been queued succesfully. It will be sent shortly.</p>';
 				}
