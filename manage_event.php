@@ -28,6 +28,7 @@
 	);
 	
 	$max_wins=$row["competitionWinners"];
+	$win_method=$row["competitionWinMethod"];
 
 	echo '<html><body><div class="container-fluid main">
 			<div style="text-align:center;margin:30px;">
@@ -66,9 +67,12 @@
 	$winner_ids=array();
 
 	if (strtotime($row["competitionEndDate"]) <= time()) {
-		
-		if ($winner_count==0 and $row["competitionWinMethod"]=="Random") {
-			$winner=getWinner($row["competitionID"],$mysqli);
+
+		if ($winner_count<$max_wins and $row["competitionWinMethod"]=="random") {
+			$winner=generateWinners($row["competitionID"],$mysqli);
+			$winners_result=$mysqli -> query("SELECT * FROM tblwinner WHERE `competitionID` ='".$_GET["event"]."'"); //Get freshly generated winners
+			$winner_count=mysqli_num_rows($winners_result);
+			$winner_ids=array();
 		} else if ($winner_count==0) {
 			$winner=false;
 		} else {
@@ -76,9 +80,9 @@
 		}
 
 		if ($winner==false) {
-			echo '<h1 class="logo">Winning Entry</h1><p class="event-page-paragraph">A winner has not yet been decided for this competition.</p>';
+			echo '<h1 class="logo">Winning Entries</h1><p class="event-page-paragraph">A winner has not yet been decided for this competition.</p>';
 		} else {
-			echo '<h1 class="logo">Winning Entries</h1>';	
+			echo '<h1 class="logo">Winning Entries</h1>';
 			while($winners_row=$winners_result->fetch_assoc()) {  //Loop through each winning entry
 				$entry_result=$mysqli -> query("SELECT * FROM tblentry WHERE `entryID` ='".$winners_row["entryID"]."'");
 				$winner=mysqli_fetch_assoc($entry_result);
@@ -106,7 +110,7 @@
 				$account_result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$row["accountID"]."'");
 				$account_row=mysqli_fetch_assoc($account_result); 
 				echo '<div class="submitted_entry">'.$account_row["accountName"].' ('.$account_row["accountUsername"].') - '.$row["entryDate"];
-				if ($winner_count<$max_wins) {
+				if ($winner_count<$max_wins and $win_method=="choose") {
 					echo '<a href="set_winner.php?event='.$_GET["event"].'&entry='.$row["entryID"].'" class="set_winner">Set as Winner</a>';
 				}
 				if ($row["entryTextbox"]!="") {

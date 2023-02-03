@@ -1,4 +1,5 @@
 <?php
+	//This page is used to display error messages when something goes wrong.
 	include 'header.php'; //Adds header to top of page and connects to database
 ?>
 
@@ -11,7 +12,7 @@
 		<div class="row" style="margin-top:15px;">
 			<h1 class="logo">An error ocurred.</h1>
 			<?php
-				if (isset($_GET["e"])) {
+				if (isset($_GET["e"])) { //Use provided error value to display relevant message
 					if ($_GET["e"]=="0") {
 						$message="The provided image could not be uploaded.";
 					}
@@ -30,7 +31,7 @@
 					else {
 						$message="Unknown error code.";
 					}
-					echo '<p class="event-page-paragraph">'.$message.'</p>';	
+					echo '<p class="event-page-paragraph">'.$message.'</p>'; //Display contents of message variable
 				}
 			?>
 		</div>

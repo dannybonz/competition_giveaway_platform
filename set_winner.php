@@ -1,15 +1,15 @@
 <?php
+	//This page is used when a business account manually chooses upon a winner. It takes the given input and records it in the winners table.
 	include 'header.php'; //Adds header to top of page and starts session
-	include 'functions.php';
+	include 'functions.php'; 
 
 	//Users must be logged in as an admin or business account in order to manage an event
 	if ((!isset($_SESSION["accountDetails"])) or (!($_SESSION["accountDetails"]["accountType"]=="Business" or $_SESSION["accountDetails"]["accountType"]=="Admin"))) {
-		header ("Location: error.php?e=1");
-		exit();
+		header ("Location: error.php?e=1"); //If not logged in as a business or admin account, redirect to error page
+		exit(); //Cease execution of this page
 	} else {
-		include 'database.php';
+		include 'database.php'; //If we are logged in, then load the database
 		$result = $mysqli -> query("INSERT INTO `tblwinner` (`winnerID`,`competitionID`,`entryID`) VALUES ('".uniqid()."','".$_GET["event"]."','".$_GET["entry"]."')"); //Record new winner
 		header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page
-
 	}
 ?>
