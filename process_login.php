@@ -20,6 +20,6 @@
 	}
 	else //If there is not a match, i.e. incorrect combination
 	{
-		header('location:index.php?e2');
+		header('location:index.php?e2'); //Redirect to homepage with error message
 	}
 ?>

@@ -1,3 +1,4 @@
+<!--This page is included as part of other pages to add the header and navigation bar-->
 <html lang="en">
 	<head>
 		<title>Competition Platform</title>
@@ -42,10 +43,10 @@
 		}
 
 		$button_text="";
-		foreach ($buttons as $button) {
-			$button_text .= '<a href="'.$button["id"].'.php" id="'.$button["id"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>';
+		foreach ($buttons as $button) { //Loop through all buttons
+			$button_text .= '<a href="'.$button["id"].'.php" id="'.$button["id"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>'; //Add button to page
 		}
-		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>';
+		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
 	};?>
 	
 	<div class="header-container row">

@@ -1,4 +1,5 @@
 <?php
+	//This page allows the user to view and update their personal information
 	include 'header.php'; //Adds header to top of page and starts session
 	include 'database.php'; //Include database
 
@@ -25,7 +26,7 @@
 					<form method="post" action="process_update.php" onsubmit="return updateAccountPressed()">
 						<?php 
 						
-							if (isset($_GET["e"])) {
+							if (isset($_GET["e"])) { //If the error attribute is set, display the corresponding error message
 								if ($_GET["e"]=="0") {
 									$message="Invalid information received. Ensure your information is valid and try again.";
 								}
@@ -45,11 +46,11 @@
 							<p class="form-label">Gender</p>
 							<select class="max_width" name="gender" id="gender">';
 							
-							$genderDescriptions = array("male" => "Male","female" => "Female","other" => "Other / Prefer Not To Say");
+							$genderDescriptions = array("male" => "Male","female" => "Female","other" => "Other / Prefer Not To Say"); //List of possible genders
 							
-							foreach ($genderDescriptions as $key => $description) {
-								if (strcmp($_SESSION["accountDetails"]["accountGender"],$key)==0) {
-									echo '<option selected value="'.$key.'">'.$description.'</option>';
+							foreach ($genderDescriptions as $key => $description) { //Loop through each gender 
+								if (strcmp($_SESSION["accountDetails"]["accountGender"],$key)==0) { //If this is the currently selected option,
+									echo '<option selected value="'.$key.'">'.$description.'</option>'; //Mark as selected
 								}
 								else {
 									echo '<option value="'.$key.'">'.$description.'</option>';								
@@ -71,28 +72,29 @@
 				$events_won=0;
 				$bs_column=9;
 				$total_entries=0;
-				$result=$mysqli -> query("SELECT * FROM tblentry WHERE `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'");
+				$result=$mysqli -> query("SELECT * FROM tblentry WHERE `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'"); //Select all entries this user has made
 				while($row = $result->fetch_assoc()) {  //Loop through each event
 					$total_entries+=1;
-					$comp_result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$row["competitionID"]."'");
-					$comp_info=mysqli_fetch_assoc($comp_result);					
-					if ($comp_info["competitionWinningEntry"]==$row["entryID"]) {
-						$events_won+=1;	
+					$winner_result=$mysqli -> query("SELECT * FROM tblwinner WHERE `competitionID` ='".$row["competitionID"]."' AND `entryID` ='".$row["entryID"]."'"); //Check if the entry was a winner
+					if (mysqli_num_rows($winner_result)) { //If the user won this event
+						$comp_result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$row["competitionID"]."'"); //Get event info
+						$comp_info=mysqli_fetch_assoc($comp_result);
+						$events_won+=1;	 
 						$bs_column+=1;
 						if ($bs_column>3) {
 							$bs_column=0;
 							$winning_text.'</div><div class="row">';
 						}
-						$winning_text=$winning_text.'<div class="col-sm-4"><div class="event-container" onclick="location.href=\'view_event.php?event='.$comp_info["competitionID"].'\'" style="background-image:url(\'event_img/'.$comp_info["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$comp_info["competitionTitle"].'</p><p class="event-desc">'.$comp_info["competitionDescription"]."</p></div></div></div>";
+						$winning_text=$winning_text.'<div class="col-sm-4"><div class="event-container" onclick="location.href=\'view_event.php?event='.$comp_info["competitionID"].'\'" style="background-image:url(\'event_img/'.$comp_info["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$comp_info["competitionTitle"].'</p><p class="event-desc">'.$comp_info["competitionDescription"]."</p></div></div></div>"; //Display competition information
 					}
-					$entries_text=$entries_text.$comp_info["competitionTitle"]." (".$comp_info["competitionEndDate"].")<br>";
+					$entries_text=$entries_text.$comp_info["competitionTitle"]." (".$comp_info["competitionEndDate"].")<br>"; //Either way, add the entry to the entries list
 				}
 
-				if ($bs_column>0) {
+				if ($bs_column>0) { //Close div if left open
 					$winning_text.'</div>';
 				}
 				
-				if ($entries_text=="") {
+				if ($entries_text=="") { //If no entries have been listed
 					$entries_text="You haven't taken part in any events yet.";					
 				}
 				
@@ -105,12 +107,11 @@
 					</div>
 				</div></div>';
 				
-				if ($winning_text!="<div class='row'>") {
+				if ($winning_text!="<div class='row'>") { //If content has been added to the winning text variable
 					echo '<div class="events_won"><h1 class="logo" style="margin-top:30px;">Events Won</h1>';
 					echo $winning_text;
 					echo '</div>';
 				}
-				
 			?>			
 		</div>
 	</div>

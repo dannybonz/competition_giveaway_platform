@@ -27,11 +27,11 @@
 					<form method="post" onsubmit="return createAccountPressed()" action="process_register.php">
 						<?php 
 						
-							if (isset($_GET["registered"])) {
-								echo '<p class="errorMessage" id="returnedMessage">Your account has been succesfully registered. You may now log in.</p>';	
+							if (isset($_GET["registered"])) { //If directed to this page with the registered attribute set, display confirmation message
+								echo '<p class="errorMessage" id="returnedMessage">Your account has been succesfully registered. You may now log in.</p>';
 							}
 							else {
-								if (isset($_GET["e"])) {
+								if (isset($_GET["e"])) { //If directed to this page with the error attribute set, display the relevant error message
 									if ($_GET["e"]=="0") {
 										$message="Invalid signup information received. Ensure your information is valid and try again.";
 									}
@@ -76,7 +76,7 @@
 					<p class="purple_boxed_header">Login</p>
 					<form method="post" action="process_login.php">
 						<?php 
-							if (isset($_GET["e2"])) {
+							if (isset($_GET["e2"])) { //If login error attribute is set, display error message.
 								echo '<p class="errorMessage" id="returnedMessage">The provided username and password do not match. Please try again.</p>';	
 							};
 						?>
