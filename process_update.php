@@ -19,7 +19,13 @@
 	$result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'"); //Find matching user data
 	$count=mysqli_num_rows($result); //Count the number of matches
 	
-	if (strlen($email)<4 || strlen($email)>30) { //If the provided email doesn't meet the character length limitations
+	$email_result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountEmail` ='".$email."' AND `accountID` != '".$_SESSION["accountDetails"]["accountID"]."'"); //Find other entries that already use the given email address
+	$email_count = mysqli_num_rows($email_result);
+	if($email_count>=1) { //If the email has already been used before 
+		$valid=false;
+		$err_code="1";
+	}
+	else if (strlen($email)<4 || strlen($email)>30) { //If the provided email doesn't meet the character length limitations
 		$valid=false;
 	}
 	else if (strlen($fullname)<3 || strlen($fullname)>40) { //If the provided full name doesn't meet the character length limitations
@@ -29,11 +35,6 @@
 		$valid=false;
 	}
 	else if($count>=1) {//If there is a match		
-		$row=mysqli_fetch_assoc($result); //Turn user data into array 
-		if (!($row["accountID"]==$_SESSION["accountDetails"]["accountID"])) { //If not logged in as the user being updated
-			header("Location: error.php?e=1"); //Redirect to error page
-			exit();
-		}
 		$result=$mysqli -> query("UPDATE tblaccount SET accountEmail='".$email."', accountGender='".$gender."', accountName='".$fullname."' WHERE `accountID`='".$_SESSION["accountDetails"]["accountID"]."'"); //Update recorded user data
 		$result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'"); //Get new user data from table to update session
 		$row=mysqli_fetch_assoc($result); //Turn updated user data into array 

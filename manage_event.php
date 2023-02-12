@@ -16,7 +16,7 @@
 	$_SESSION["competitionID"]=$_GET["event"];
 	
 	if ($count<1) { //If there isn't a match
-		header ("location:error.php?e=2");
+		header ("location:error.php?e=2"); //Redirect to error page
 		exit();
 	}
 

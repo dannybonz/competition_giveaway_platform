@@ -19,10 +19,10 @@
 		</div>
 			<?php 
 				
-				$subheadings = array(); //We don't know which subheadings we'll need. The ones that we need will be added to this array.
+				$subheadings=array(); //We don't know which subheadings we'll need. The ones that we need will be added to this array.
 		
-				$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID` = '".$_SESSION["accountDetails"]["accountID"]."' AND `competitionStartDate` <= CURDATE() AND `competitionEndDate` > CURDATE()"); //Select all events that have started and have not finished (i.e. currently active)
-				$count = mysqli_num_rows($result); //Count the number of matches
+				$result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID`='".$_SESSION["accountDetails"]["accountID"]."' AND `competitionStartDate` <= CURDATE() AND `competitionEndDate` > CURDATE()"); //Select all events that have started and have not finished (i.e. currently active)
+				$count=mysqli_num_rows($result); //Count the number of matches
 				if ($count) { //There is a currently active competition, so we'll include an Active Now subheading
 					array_push($subheadings,array(
 						"text" => "Active Now",
@@ -30,8 +30,8 @@
 					));
 				}
 
-				$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID` = '".$_SESSION["accountDetails"]["accountID"]."' AND `competitionStartDate` > CURDATE()"); //Select all events that have not yet started
-				$count = mysqli_num_rows($result); //Count the number of matches
+				$result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID`='".$_SESSION["accountDetails"]["accountID"]."' AND `competitionStartDate` > CURDATE()"); //Select all events that have not yet started
+				$count=mysqli_num_rows($result); //Count the number of matches
 				if ($count) { //There is an upcoming competition, so we'll include an Coming Up subheading
 					array_push($subheadings,array(
 						"text" => "Coming Up",
@@ -39,8 +39,8 @@
 					));
 				}
 
-				$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID` = '".$_SESSION["accountDetails"]["accountID"]."' AND `competitionEndDate` < CURDATE()"); //Select all events that have already finished
-				$count = mysqli_num_rows($result); //Count the number of matches
+				$result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `accountID`='".$_SESSION["accountDetails"]["accountID"]."' AND `competitionEndDate` < CURDATE()"); //Select all events that have already finished
+				$count=mysqli_num_rows($result); //Count the number of matches
 				if ($count) {  //There is a completed competition, so we'll include an Completed Events subheading
 					array_push($subheadings,array(
 						"text" => "Completed Events",
@@ -53,7 +53,7 @@
 					<div class="row">';
 					$items_in_row=0;
 
-					while($row = $subheading["result"]->fetch_assoc()) {  //Loop through each event
+					while($row=$subheading["result"]->fetch_assoc()) {  //Loop through each event
 						if ($items_in_row==3) { //If the row has exceeded 3 items
 							echo '</div><div class="row">'; //Start a new row
 							$items_in_row=0;

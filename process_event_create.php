@@ -27,13 +27,13 @@
 			$count = mysqli_num_rows($result); //Count the number of matches
 			
 			if($count<1) { //If there isn't a match
-				header ("location:error.php?e=2");
+				header ("location:error.php?e=2"); //Redirect to error page
 				exit();
 			}
 
 			$row = mysqli_fetch_assoc($result); //Turn competition data into array 
 			if (!($row["accountID"]==$_SESSION["accountDetails"]["accountID"])) { //Cannot edit competitions you did not create
-				header ("location:error.php?e=1");
+				header ("location:error.php?e=1"); //Redirect to error page
 				exit();
 			}
 
