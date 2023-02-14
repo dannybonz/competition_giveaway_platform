@@ -23,6 +23,7 @@
 				}
 				echo '<div class="col-sm-4"><div class="event-container" onclick="location.href=\'view_event.php?event='.$row["competitionID"].'\'" style="background-image:url(\'event_img/'.$row["competitionID"].'.png\')"><div class="event-text"><p class="event-title">'.$row["competitionTitle"].'</p><p class="event-desc">'.$row["competitionDescription"]."</p></div></div></div>"; //Display event information
 				$items_in_row+=1;
+			}
 		} else {
 			echo '<h1 class="logo" style="margin-top:10%;width:50%;margin-left:25%;">Unfortunately, there are no events you can currently participate in.</h1>';
 		}

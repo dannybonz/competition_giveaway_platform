@@ -28,6 +28,9 @@
 					elseif ($_GET["e"]=="4") {
 						$message="Invalid information provided for form.";
 					}
+					elseif ($_GET["e"]=="5") {
+						$message="Form already submitted.";
+					}
 					else {
 						$message="Unknown error code.";
 					}

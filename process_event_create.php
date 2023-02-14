@@ -20,6 +20,7 @@
 		if ($event=="0") { //If this is a brand new event
 			$competitionID = uniqid(); 
 			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')"); 
+			echo "INSERT INTO `tblcompetition` (`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')";
 		} else {
 			$competitionID = $event;
 
@@ -49,6 +50,5 @@
 		}
 
 		header ('Location: manage_event.php?event='.$competitionID); //Redirect to relevant event management page
-
 	}
 ?>
