@@ -45,8 +45,13 @@ function deleteClicked() { //Bring up Delete Confirmation screen
 }
 
 function cancelDelete() { //Hide Delete Confirmation screen
-	$(".confirm-delete").fadeOut();
+	$(".confirm-delete").hide();
 	$(".main *:not(.confirm-delete)").fadeIn();
+}
+
+function deleteUserClicked(accountID) {
+	$("#user").val(accountID);
+	deleteClicked();
 }
 
 function updateAccountPressed() { //Validates input on the frontend

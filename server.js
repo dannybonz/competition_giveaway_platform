@@ -75,7 +75,7 @@ con.connect(function(err) { //Connect to database
 					//Set email options and contents
 					var mailOptions = { 
 						from: 'Turtle Events',
-						to: 'bonzorio1@gmail.com', //Just use my email for now, change this in future
+						to: sender_result["accountEmail"], 
 						subject: 'Message from '+sender_result[0]["accountName"],
 						html: '<div style="background-image:linear-gradient(to bottom right, #F6C2CB, #730973);width:90%;text-align:center;font-family:sans-serif;padding-top:20px;padding-bottom:10px;border-radius:200px;margin-left: 5%;margin-top:50px;margin-bottom:50px"><img src=\'https://cdn.discordapp.com/attachments/344919769813745674/1065806877872619531/logo.png\' style="width:auto;height:100px;margin-bottom:20px"><br><h1 style="text-align:center;color:white;background-color: rgba(128, 0, 128, 0.1);display:inline-block;padding:15px;border-radius:15px;width:50%">'+sender_result[0]["accountName"]+' sent you the following message.</h1><br><h1 style="text-align:center;color:white;background-color: rgba(128, 0, 128, 0.1);display:inline-block;padding:15px;border-radius:15px;width:50%">'+item["emailContents"]+'</h1><p style="color:white;margin-top:50px;font-weight:bold;font-style:italic;">This email was triggered by the event organiser initiating a message through the Turtle Events platform. Your email address has not been shared with the event organiser.</p></div>'
 					};

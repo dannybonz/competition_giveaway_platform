@@ -11,6 +11,12 @@ p {
 	text-shadow: 0 0 1px black, 0 0 3px black;
 }
 
+th, td {
+	background-color: white;
+	border-style: solid;
+	border-color: grey;
+}
+
 input {
 	border-radius: 10px;
 	border: 0px;
@@ -21,6 +27,46 @@ select {
 	border-radius: 10px;
 	border: 0px;
 	padding: 10px;	
+}
+
+.admin_button {
+	margin: 2px;
+	padding: 10px;
+	border-radius: 10px;
+	border: 0px;
+}
+
+.admin_warning {
+	border: 1px;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: darkred;
+	border-style: solid;	
+}
+
+.admin_select {
+	border: 1px;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: grey;
+	border-style: solid;
+}
+
+.table_entry {
+	padding: 20px;
+}
+
+.table_container {
+	background-image: linear-gradient(to bottom right, white, lightgrey);
+	padding: 20px;
+	margin-top: 30px;
+	border-radius: 50px;
+	text-align: center;
+}
+
+table {
+	margin-left: auto;
+	display: inline-block;
 }
 
 .events_won {
@@ -237,6 +283,7 @@ select {
 
 .header-container {
 	width: 100%;
+	display: inline-block;
 }
 
 .main {

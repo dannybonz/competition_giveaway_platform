@@ -37,8 +37,8 @@
 		//Options for admin account
 		if (strcmp($_SESSION["accountDetails"]["accountType"],"Admin")==0) {
 			array_push($buttons,array(
-			"text" => "Admin Stuff",
-			"id" => "admin",
+			"text" => "Manage Users",
+			"id" => "manage_users",
 			));
 		}
 
@@ -49,7 +49,7 @@
 		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
 	};?>
 	
-	<div class="header-container row">
+	<div class="header-container">
 		<div class="navbar-header">
 			<a href="index.php">
 				<img href="index.php" style="height:auto;width:20%" src="logo.png">
