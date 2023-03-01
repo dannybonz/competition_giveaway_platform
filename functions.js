@@ -49,8 +49,13 @@ function cancelDelete() { //Hide Delete Confirmation screen
 	$(".main *:not(.confirm-delete)").fadeIn();
 }
 
-function deleteUserClicked(accountID) {
+function deleteUserClicked(accountID) { //Update hidden form value and display confirmation screen
 	$("#user").val(accountID);
+	deleteClicked();
+}
+
+function deleteEventClicked(eventID) { //Update Delete button URL and display confirmation screen
+	$("#delete").attr("href", "process_event_delete.php?event="+eventID);
 	deleteClicked();
 }
 

@@ -17,7 +17,7 @@
 	}
 
 	$row = mysqli_fetch_assoc($result); //Turn competition data into array 
-	if (!($row["accountID"]==$_SESSION["accountDetails"]["accountID"])) { //If you are not currently logged in as the creator of the competition, you cannot delete it.
+	if (!($row["accountID"]==$_SESSION["accountDetails"]["accountID"] or $_SESSION["accountDetails"]["accountType"]=="Admin")) { //If you are not currently logged in as the creator of the competition or an admin user, you cannot delete it.
 		header ("location:error.php?e=1"); //Redirect to error page
 		exit(); //Cease execution of page
 	}

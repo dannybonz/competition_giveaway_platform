@@ -40,6 +40,10 @@
 			"text" => "Manage Users",
 			"id" => "manage_users",
 			));
+			array_push($buttons,array(
+			"text" => "Manage Events",
+			"id" => "manage_events",
+			));
 		}
 
 		$button_text="";
