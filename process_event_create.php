@@ -9,6 +9,7 @@
 
 		$title = mysql_real_escape_string($_POST["title"]); //Escape string to prevent injection
 		$description = mysql_real_escape_string($_POST["description"]);
+		$rules = mysql_real_escape_string($_POST["rules"]);
 		$deadline = mysql_real_escape_string($_POST["deadline"]);
 		$start = mysql_real_escape_string($_POST["start"]);
 		$event = mysql_real_escape_string($_POST["event"]);
@@ -19,8 +20,8 @@
 
 		if ($event=="0") { //If this is a brand new event
 			$competitionID = uniqid(); 
-			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')"); 
-			echo "INSERT INTO `tblcompetition` (`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')";
+			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')"); 
+			echo "INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')";
 		} else {
 			$competitionID = $event;
 
@@ -38,7 +39,7 @@
 				exit();
 			}
 
-			$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionWinners` = '".$winners."', `competitionTitle` = '".$title."', `competitionTextRequirement` = '".$text."', `competitionWinMethod` = '".$win."', `competitionDescription` = '".$description."', `competitionEndDate` = '".$deadline."', `competitionStartDate` = '".$start."' WHERE `competitionID` = '".$event."'");			
+			$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionRules` = '".$rules."', `competitionWinners` = '".$winners."', `competitionTitle` = '".$title."', `competitionTextRequirement` = '".$text."', `competitionWinMethod` = '".$win."', `competitionDescription` = '".$description."', `competitionEndDate` = '".$deadline."', `competitionStartDate` = '".$start."' WHERE `competitionID` = '".$event."'");			
 		}
 
 		if($_FILES["image"]["error"] == 0) {

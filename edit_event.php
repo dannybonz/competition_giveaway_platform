@@ -29,6 +29,7 @@
 							} else {
 								$title = $row["competitionTitle"];
 								$desc = $row["competitionDescription"];
+								$rules = $row["competitionRules"];
 								$start = $row["competitionStartDate"];
 								$end = $row["competitionEndDate"];
 								$image = "Optionally upload a new image to replace the event's current image.";
@@ -46,6 +47,7 @@
 					} else {
 						$title = "";
 						$desc = "";
+						$rules = "";
 						$text = "0";
 						$start = "";
 						$end = "";
@@ -60,8 +62,10 @@
 					echo '<form method="post" action="process_event_create.php" enctype="multipart/form-data">
 						<p class="form-label">Enter your event\'s title.</p>
 						<input type="text" required style="width:100%" name="title" value="'.$title.'" placeholder="Event title"><br>
-						<p class="form-label">Enter your event\'s description and rules.</p>
+						<p class="form-label">Enter your event\'s description.</p>
 						<textarea class="textarea_input" required name="description" placeholder="Event description">'.$desc.'</textarea><br>
+						<p class="form-label">Enter your event\'s rules.</p>
+						<textarea class="textarea_input" required name="rules" placeholder="Event rules">'.$rules.'</textarea><br>
 						<p class="form-label">Enter the competition\'s start date.</p>
 						<input required name="start" type="date" value="'.$start.'"><br>
 						<p class="form-label">Enter the deadline for entry.</p>

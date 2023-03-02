@@ -31,7 +31,7 @@
 						</div>
 						<div class="col-sm-6">
 							<h1 class="logo">Event Rules</h1>
-							<p class="event-page-paragraph">'.$row["competitionDescription"].'</p>
+							<p class="event-page-paragraph">'.$row["competitionRules"].'</p>
 						</div>
 					</div>
 				</div>
