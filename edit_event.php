@@ -63,9 +63,9 @@
 						<p class="form-label">Enter your event\'s title.</p>
 						<input type="text" required style="width:100%" name="title" value="'.$title.'" placeholder="Event title"><br>
 						<p class="form-label">Enter your event\'s description.</p>
-						<textarea class="textarea_input" required name="description" placeholder="Event description">'.$desc.'</textarea><br>
+						<textarea class="textarea_input" maxlength="500" required name="description" placeholder="Event description">'.$desc.'</textarea><br>
 						<p class="form-label">Enter your event\'s rules.</p>
-						<textarea class="textarea_input" required name="rules" placeholder="Event rules">'.$rules.'</textarea><br>
+						<textarea class="textarea_input" maxlength="500" required name="rules" placeholder="Event rules">'.$rules.'</textarea><br>
 						<p class="form-label">Enter the competition\'s start date.</p>
 						<input required name="start" type="date" value="'.$start.'"><br>
 						<p class="form-label">Enter the deadline for entry.</p>
