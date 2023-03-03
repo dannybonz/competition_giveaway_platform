@@ -38,7 +38,7 @@
 			</div>';
 ?>
 
-	<div style="text-align:center;">
+	<div style="text-align:center;margin-top:30px;">
 		<div class="purple_boxed">
 			<?php
 				if (strtotime($row["competitionEndDate"]) <= time()) { //If the event previously finished
