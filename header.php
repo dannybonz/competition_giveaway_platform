@@ -12,18 +12,21 @@
 	<img class="loading" src="loading.png">
 	<?php 
 	session_start();
-	if (isset($_SESSION['accountDetails'])) {
 
-		//Options that every user has
-		$buttons = array(array(
-			"text" => "Home",
-			"id" => "index",
-		), array(
-			"text" => "View Events",
-			"id" => "events",
-		),array(
-			"text" => "My Page",
-			"id" => "profile",
+	//Options that every user has
+	$buttons = array(array(
+		"text" => "Home",
+		"id" => "index",
+	), array(
+		"text" => "View Events",
+		"id" => "events",
+	));
+
+	//Options for signed in users
+	if (isset($_SESSION['accountDetails'])) {
+		array_push($buttons,array(
+		"text" => "My Page",
+		"id" => "profile",
 		));
 		
 		//Options for business account
@@ -45,13 +48,20 @@
 			"id" => "manage_events",
 			));
 		}
+	}
 
-		$button_text="";
-		foreach ($buttons as $button) { //Loop through all buttons
-			$button_text .= '<a href="'.$button["id"].'.php" id="'.$button["id"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>'; //Add button to page
-		}
-		echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div><div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
-	};?>
+	$button_text="";
+	foreach ($buttons as $button) { //Loop through all buttons
+		$button_text .= '<a href="'.$button["id"].'.php" id="'.$button["id"].'" class="menuButton" style="display:inline;margin-left:10px;margin-bottom:7px;">'.$button["text"].'</a>'; //Add button to page
+	}
+
+	echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div>';
+	if (isset($_SESSION['accountDetails'])) {
+		echo '<div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
+	} else {
+		echo '<div class="login-bar col-sm-6"><a class="menuButton" href="index.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Register Account / Sign In</a></div></div>'; //Add Sign In button		
+	}
+	?>
 	
 	<div class="header-container">
 		<div class="navbar-header">

@@ -1,3 +1,8 @@
+footer {
+	background-color: rgba(162,75,147,0.7);
+	margin-top: 20px;
+}
+
 body {
 	background-image: linear-gradient(to bottom right, #F6C2CB, #730973);
 }
@@ -27,6 +32,17 @@ select {
 	border-radius: 10px;
 	border: 0px;
 	padding: 10px;	
+}
+
+.white_link, .white_link:hover{
+	color: white;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.footer_text {
+	padding: 10px;
+	text-align: center;
 }
 
 .admin_button {

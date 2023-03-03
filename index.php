@@ -5,17 +5,13 @@
 <html>
 	<head>
 		<script src="functions.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--Allows for social media icons-->
 	</head>
 	<div class="main container-fluid">
-		<div class="row" style="margin-top:15px;">
-			<h1 class="logo">Welcome to the site</h1>
-		</div>
-		<div class="row">
-			<div class="col-sm-6" style="text-align:center;">
-				<p class="purple-boxed">Yeah, welcome and that</p>
-			</div>
-			<div class="col-sm-6" style="text-align:center;">
-				<p class="purple-boxed">I am also welcoming you</p>
+		<div class="row" style="margin-top:15px;text-align:center;">
+			<h1 class="logo">Welcome to CompEe!</h1>
+			<div class="purple-boxed" style="float:none;margin:0 auto;margin:15px;">
+				<p style="margin-top:10px;">CompEe allows businesses and organisations to run competitions and giveaways online.<br><b>Register now to take part in events!</b></p>
 			</div>
 		</div>
 
@@ -88,6 +84,7 @@
 					</form>
 				</div>
 			</div>
+		</div>
 	</div>
-	</div>
+	<footer><p class="footer_text">Contact Us: <a class='white_link' href='mailto:contact@compee.com'>contact@compee.com</a><a href="#" class="fa fa-facebook white_link"></a><a href="#" class="fa fa-twitter white_link"></a></p></footer>
 </html>
