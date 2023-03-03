@@ -10,7 +10,7 @@
 	<div class="main container-fluid">
 		<div class="row" style="margin-top:15px;text-align:center;">
 			<h1 class="logo">Welcome to CompEe!</h1>
-			<div class="purple-boxed" style="float:none;margin:0 auto;margin:15px;">
+			<div class="purple_boxed" style="float:none;margin:0 auto;margin:15px;">
 				<p style="margin-top:10px;">CompEe allows businesses and organisations to run competitions and giveaways online.<br><b>Register now to take part in events!</b></p>
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 		<div class="row" style="margin-top:15px;">
 
 			<div class="col-sm-4 col-sm-offset-2">
-				<div class="purple-boxed max_width" style="float: none; margin: 0 auto;">
+				<div class="purple_boxed max_width" style="float: none; margin: 0 auto;">
 					<p class="purple_boxed_header">Registration</p>
 					<form method="post" onsubmit="return createAccountPressed()" action="process_register.php">
 						<?php 
@@ -68,7 +68,7 @@
 			</div>
 			
 			<div class="col-sm-4">
-				<div class="purple-boxed max_width">
+				<div class="purple_boxed max_width">
 					<p class="purple_boxed_header">Login</p>
 					<form method="post" action="process_login.php">
 						<?php 

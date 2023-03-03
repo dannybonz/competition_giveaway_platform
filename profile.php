@@ -21,7 +21,7 @@
 
 		<div class="row">
 			<div class="col-sm-3 col-sm-offset-3">
-				<div class="purple-boxed max_width">
+				<div class="purple_boxed max_width">
 					<p class="purple_boxed_header">Update Information</p>		
 					<form method="post" action="process_update.php" onsubmit="return updateAccountPressed()">
 						<?php 
@@ -99,7 +99,7 @@
 				}
 				
 				echo '<div class="col-sm-3">		
-				<div class="purple-boxed max_width" style="height:400px;overflow-y:auto;">
+				<div class="purple_boxed max_width" style="height:400px;overflow-y:auto;">
 					<p class="purple_boxed_header">Entry Stats</p>
 					<p>Entries Submitted: '.$total_entries.'<br>Events Won: '.$events_won.'</p><br>
 					<p class="purple_boxed_header">Events Entered</p>

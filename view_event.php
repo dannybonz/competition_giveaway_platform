@@ -39,7 +39,7 @@
 ?>
 
 	<div style="text-align:center;">
-		<div class="purple-boxed">
+		<div class="purple_boxed">
 			<?php
 				if (strtotime($row["competitionEndDate"]) <= time()) { //If the event previously finished
 					echo '<p class="event-page-paragraph">This event\'s deadline has passed.</p>

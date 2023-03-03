@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div class="confirm-delete">
-		<div class="purple-boxed" style="text-align:center">
+		<div class="purple_boxed" style="text-align:center">
 			<p class="event-page-paragraph">Are you sure you wish to delete this event?</p>
 			<div class="row" style="width:400px;margin:auto;">
 				<button class="button" onclick="cancelDelete()" style="margin-left:10px">Cancel</button>

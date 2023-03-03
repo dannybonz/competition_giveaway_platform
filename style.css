@@ -317,8 +317,8 @@ table {
 	padding: 15px;
 }
 
-.purple-boxed {
-	background-color: rgba(128, 0, 128, 0.1);
+.purple_boxed {
+	background-color: rgba(128, 0, 128, 0.2);
 	display: inline-block;
 	padding: 15px;
 	border-radius: 15px;

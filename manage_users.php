@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class="confirm-delete">
-		<div class="purple-boxed" style="text-align:center">
+		<div class="purple_boxed" style="text-align:center">
 			<p class="event-page-paragraph">Are you sure you wish to delete this user?</p>
 			<div class="row" style="width:300px;margin:auto;">
 				<div class="col-sm-6">
