@@ -13,7 +13,7 @@
 	$email = mysql_real_escape_string($_POST["email"]);
 	$birthday = mysql_real_escape_string($_POST["birthday"]);
 	$gender = mysql_real_escape_string($_POST["gender"]);
-	
+		
 	$valid=true;
 	$err_code="0";
 
@@ -56,15 +56,25 @@
 		}
 	}
 	
+	$_POST["debug"]="true";
 	if ($valid==true) {
 		$salt="dc0b2dd4f78221adac85386e9ee57a9047562d5"; //Salt used for encryption 
 		$password = md5($password.$salt); //Encrypt with md5 
 		$accountID = uniqid();
 		$result = $mysqli -> query("INSERT INTO `tblaccount` (`accountID`,`accountName`,`accountUsername`,`accountType`,`accountPassword`,`accountGender`,`accountEmail`,`accountBirthday`) VALUES ('".$accountID."','".$fullName."','".$username."','Standard','".$password."','".$gender."','".$email."','".$birthday."')"); //Add new member to members table using given values
-		header ('Location:index.php?registered');
+
+		if ($_POST["debug"]=="true") {
+			echo "Complete";
+		} else {
+			header ('Location:index.php?registered');
+		}
 	}
 	else {
-		header ('Location:index.php?e='.$err_code);
+		if ($_POST["debug"]=="true") {
+			echo "Error ".$err_code;
+		} else {
+			header ('Location:index.php?e='.$err_code);
+		}
 	}
 
 ?>

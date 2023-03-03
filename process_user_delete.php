@@ -1,9 +1,9 @@
 <?php
 	//This page is used when an admin account chooses to delete a user account.
 	session_start();
-	//Users must be logged in as an admin account in order to delete an event
+	//Users must be logged in as an admin account in order to delete a user
 	if ((!isset($_SESSION["accountDetails"])) or (!($_SESSION["accountDetails"]["accountType"]=="Admin"))) {
-		header ("Location: error.php?e=1"); //If not logged in, redirect to error page
+//		header ("Location: error.php?e=1"); //If not logged in, redirect to error page
 		exit(); //Cease execution of page
 	}
 	
@@ -13,5 +13,9 @@
 	$result = $mysqli -> query("DELETE FROM `tblwinner` WHERE `accountID` = '".$_POST["user"]."'"); //Delete the user's wins
 	$result = $mysqli -> query("DELETE FROM `tblcompetition` WHERE `accountID` = '".$_POST["user"]."'"); //Delete the user's competitions
 	
-	header ('Location: manage_users.php'); //Redirect back to event management page
+	if (isset($_POST["debug"])) {
+		echo "Complete";
+	} else {
+		header ('Location: manage_users.php'); //Redirect back to event management page
+	}
 ?>
