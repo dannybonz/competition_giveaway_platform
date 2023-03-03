@@ -15,7 +15,7 @@
 	</head>
 	<div class="main">
 		<div class="row" style="margin-top:15px;">
-			<div class="purple-bg" style="width:fit-content;margin: 0 auto">
+			<div class="purple-bg" style="width:fit-content;margin: 0 auto;margin-bottom:20px;">
 				<?php 
 					if (isset($_GET["event"])) {
 						include 'database.php';
