@@ -57,7 +57,7 @@
 
 	echo '<div class="top-bar container-fluid"><div class="navigation-bar col-sm-6">'.$button_text.'</div>';
 	if (isset($_SESSION['accountDetails'])) {
-		echo '<div class="login-bar col-sm-6"><p style="display:inline;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
+		echo '<div class="login-bar col-sm-6"><p style="display:inline;font-size:1em;">Logged in as <b>'.$_SESSION["accountDetails"]["accountName"].'</b></p><a class="menuButton" href="process_signout.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Sign Out</a></div></div>'; //Add Signed In information and logout button
 	} else {
 		echo '<div class="login-bar col-sm-6"><a class="menuButton" href="index.php" style="display:inline;margin-left:10px;margin-bottom:7px;">Register Account / Sign In</a></div></div>'; //Add Sign In button		
 	}
