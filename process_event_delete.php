@@ -26,5 +26,9 @@
 	$result = $mysqli -> query("DELETE FROM `tblentry` WHERE `competitionID` = '".$_GET["event"]."'"); //Delete any entries for the competition
 	$result = $mysqli -> query("DELETE FROM `tblwinner` WHERE `competitionID` = '".$_GET["event"]."'"); //Delete any winners for the competition
 	
-	header ('Location: event_management.php'); //Redirect back to event management page
+	if (isset($_POST["debug"])) {
+		echo "Complete";
+	} else {
+		header ('Location: event_management.php'); //Redirect back to event management page		
+	}
 ?>

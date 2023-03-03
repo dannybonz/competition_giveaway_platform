@@ -29,15 +29,15 @@
 		"id" => "profile",
 		));
 		
-		//Options for business account
-		if (strcmp($_SESSION["accountDetails"]["accountType"],"Business")==0) {
+		//Options for Business accounts and Admin accounts
+		if (strcmp($_SESSION["accountDetails"]["accountType"],"Business")==0 or strcmp($_SESSION["accountDetails"]["accountType"],"Admin")==0) {
 			array_push($buttons,array(
 			"text" => "Event Management",
 			"id" => "event_management",
 			));
 		}
 		
-		//Options for admin account
+		//Options exclusive to Admin accounts
 		if (strcmp($_SESSION["accountDetails"]["accountType"],"Admin")==0) {
 			array_push($buttons,array(
 			"text" => "Manage Users",

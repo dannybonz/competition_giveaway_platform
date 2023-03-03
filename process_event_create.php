@@ -21,7 +21,6 @@
 		if ($event=="0") { //If this is a brand new event
 			$competitionID = uniqid(); 
 			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')"); 
-			echo "INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')";
 		} else {
 			$competitionID = $event;
 
@@ -42,14 +41,19 @@
 			$result = $mysqli -> query("UPDATE `tblcompetition` SET `competitionRules` = '".$rules."', `competitionWinners` = '".$winners."', `competitionTitle` = '".$title."', `competitionTextRequirement` = '".$text."', `competitionWinMethod` = '".$win."', `competitionDescription` = '".$description."', `competitionEndDate` = '".$deadline."', `competitionStartDate` = '".$start."' WHERE `competitionID` = '".$event."'");			
 		}
 
-		if($_FILES["image"]["error"] == 0) {
-			$target_file = "event_img/".$competitionID.".png"; //Target location for the image to be saved, using the same filename as the competition ID makes it easy to match
-			if(!(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file))) { //If the file was not moved succesfully
-				header ('Location: error.php?e=0'); //Redirect to error page
-				exit();
-			};
-		}
+		if (isset($_POST["debug"])) {
+			echo "Complete";
+		} else {
 
-		header ('Location: manage_event.php?event='.$competitionID); //Redirect to relevant event management page
+			if($_FILES["image"]["error"] == 0) {
+				$target_file = "event_img/".$competitionID.".png"; //Target location for the image to be saved, using the same filename as the competition ID makes it easy to match
+				if(!(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file))) { //If the file was not moved succesfully
+					header ('Location: error.php?e=0'); //Redirect to error page
+					exit();
+				};
+			}
+
+			header ('Location: manage_event.php?event='.$competitionID); //Redirect to relevant event management page
+		}
 	}
 ?>
