@@ -7,8 +7,12 @@
 		header ("Location: error.php?e=1");
 		exit();
 	}
-
+	
 	include 'database.php';
 	$result=$mysqli -> query("UPDATE tblaccount SET accountType='".$_POST["type"]."' WHERE `accountID`='".$_POST["user"]."'"); //Update recorded user data
-	header ('Location:manage_users.php'); //Return to user management page
+	if (isset($_POST["debug"])) {
+		echo "Complete";
+	} else {
+		header ('Location:manage_users.php'); //Return to user management page
+	}
 ?>
