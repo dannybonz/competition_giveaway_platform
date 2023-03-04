@@ -15,7 +15,11 @@
 			exit();
 		} else {
 			$result=$mysqli -> query("DELETE FROM `tblentry` WHERE `entryID`='".$_POST["entryID"]."'"); //Retract entry from competition
-			header ('Location: view_event.php?event='.$_POST["competitionID"]); //Redirect to relevant event view page
+			if (isset($_POST["debug"])) {
+				echo "Complete";
+			} else {
+				header ('Location: view_event.php?event='.$_POST["competitionID"]); //Redirect to relevant event view page
+			}
 		}
 	} else { //If no such entry exists
 		header("Location: error.php?e=2"); //Redirect to error page

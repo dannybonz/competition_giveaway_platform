@@ -47,6 +47,10 @@
 			"text" => "Manage Events",
 			"id" => "manage_events",
 			));
+			array_push($buttons,array(
+			"text" => "Unit Tests",
+			"id" => "unit_test",
+			));
 		}
 	}
 

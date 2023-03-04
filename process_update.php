@@ -39,17 +39,22 @@
 		$result=$mysqli -> query("SELECT * FROM tblaccount WHERE `accountID` ='".$_SESSION["accountDetails"]["accountID"]."'"); //Get new user data from table to update session
 		$row=mysqli_fetch_assoc($result); //Turn updated user data into array 
 		$_SESSION["accountDetails"]=$row; //Store account details as session value
-		header('location:profile.php'); //Return to profile page
 		$valid=true;
+		if (isset($_POST["debug"])) {
+			echo "Complete";
+		} else {
+			header ('Location:profile.php');
+		}
 	} 
 	else {
 		$valid=false;
 	}
 	
-	if ($valid==true) { //If the provided information passed validation, direct back to profile page
-		header ('Location:profile.php');
-	}
-	else { //If the provided information was invalid, direct to profile page with provided error code to display error message
-		header ('Location:profile.php?e='.$err_code);
+	if ($valid==false) { //If the provided information was invalid, direct to profile page with provided error code to display error message
+		if (isset($_POST["debug"])) {
+			echo "Error ".$err_code;
+		} else {
+			header ('Location:profile.php?e='.$err_code);			
+		}
 	}
 ?>

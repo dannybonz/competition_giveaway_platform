@@ -3,10 +3,10 @@
 	session_start();
 	//Users must be logged in as an admin account in order to delete a user
 	if ((!isset($_SESSION["accountDetails"])) or (!($_SESSION["accountDetails"]["accountType"]=="Admin"))) {
-//		header ("Location: error.php?e=1"); //If not logged in, redirect to error page
+		header ("Location: error.php?e=1"); //If not logged in, redirect to error page
 		exit(); //Cease execution of page
 	}
-	
+
 	include 'database.php';
 	$result = $mysqli -> query("DELETE FROM `tblaccount` WHERE `accountID` = '".$_POST["user"]."'"); //Delete the user's account record
 	$result = $mysqli -> query("DELETE FROM `tblentry` WHERE `accountID` = '".$_POST["user"]."'"); //Delete the user's entries

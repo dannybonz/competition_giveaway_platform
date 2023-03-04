@@ -33,5 +33,10 @@
 
 	$entryID = uniqid(); //Create unique ID for entry record
 	$result = $mysqli -> query("INSERT INTO `tblentry` (`entryID`,`accountID`,`competitionID`,`entryDate`,`entryFilepath`,`entryTextbox`) VALUES ('".$entryID."','".$_SESSION["accountDetails"]["accountID"]."','".$_SESSION["competitionID"]."',now(),'','".mysql_real_escape_string($_POST["text"])."')"); //Add new entry to entries table using given values
-	header ('Location: view_event.php?event='.$_SESSION["competitionID"]) //Redirect to relevant event page
+	
+	if (isset($_POST["debug"])) {
+		echo "Complete";
+	} else {
+		header ('Location: view_event.php?event='.$_SESSION["competitionID"]); //Redirect to relevant event page
+	}
 ?>

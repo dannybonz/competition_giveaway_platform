@@ -11,7 +11,6 @@
 	session_start(); //Start session
 	include 'database.php'; //Include database
 	$_POST['debug'] = 'true'; //Enable debug to receive error information
-	$_SESSION=array("accountDetails" => array("accountType" => "Admin", "accountID" => "test")); //Enable admin privileges
 
 	//Test 1: Create user account
 	$_POST["username"]="TestUser";
@@ -34,9 +33,26 @@
 	}
 	echo '</div>';
 
-	//Test 2: Delete user account
+	//Test 2: Update user account
+	$_POST["fullname"]="Test Account2";
+	$_SESSION["accountDetails"]["accountID"]=$newly_registered_user;
+	echo '<div class="test"><h3>#2 Update User Account</h1><br>Response: ';
+	include 'process_update.php';
+	$result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountName` ='Test Account2'");
+	$count = mysqli_num_rows($result);
+	if($count>=1) { //If the account exists 
+		echo "<br>Check: User exists with new name";
+		echo '<div class="success">Success</div>';
+	} else {
+		echo "<br>Check: User does not exist with new name";
+		echo '<div class="failure">Failure</div>';		
+	}
+	echo '</div>';
+
+	//Test 3: Delete user account
+	$_SESSION=array("accountDetails" => array("accountType" => "Admin", "accountID" => "test")); //Enable admin privileges
 	$_POST["user"]=$newly_registered_user;
-	echo '<div class="test"><h3>#2 Delete User Account</h1><br>Response: ';
+	echo '<div class="test"><h3>#3 Delete User Account</h1><br>Response: ';
 	include 'process_user_delete.php';
 	$result = $mysqli -> query("SELECT * FROM tblaccount WHERE `accountUsername` ='TestUser'");
 	$count = mysqli_num_rows($result);
@@ -49,7 +65,7 @@
 	}
 	echo '</div>';
 
-	//Test 3: Create event
+	//Test 4: Create event
 	$_POST["title"]="TestEvent";
 	$_POST["description"]="TestDescription";
 	$_POST["rules"]="TestRules";
@@ -59,7 +75,7 @@
 	$_POST["win"]="random";
 	$_POST["text"]="50";
 	$_POST["winners"]="2";
-	echo '<div class="test"><h3>#3 Create Event</h1><br>Response: ';
+	echo '<div class="test"><h3>#4 Create Event</h1><br>Response: ';
 	include 'process_event_create.php';
 	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionTitle` ='TestEvent'");
 	$count = mysqli_num_rows($result);
@@ -72,11 +88,11 @@
 	}
 	echo '</div>';
 
-	//Test 4: Edit event
+	//Test 5: Edit event
 	$_GET["event"]=$competitionID;
 	$_POST["event"]=$competitionID;
 	$_POST["title"]="NewTitledTestEvent";
-	echo '<div class="test"><h3>#4 Edit Event</h1><br>Response: ';
+	echo '<div class="test"><h3>#5 Edit Event</h1><br>Response: ';
 	include 'process_event_create.php';
 	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionTitle` ='NewTitledTestEvent'");
 	$count = mysqli_num_rows($result);
@@ -89,8 +105,39 @@
 	}
 	echo '</div>';
 
-	//Test 5: Delete event
-	echo '<div class="test"><h3>#5 Delete Event</h1><br>Response: ';
+	//Test 6: Create submission
+	$_SESSION["competitionID"]=$competitionID;
+	$_POST["text"]="Test string";
+	echo '<div class="test"><h3>#6 Create Event Submission</h1><br>Response: ';
+	include 'process_entry.php';
+	$result = $mysqli -> query("SELECT * FROM tblentry WHERE `competitionID` ='".$competitionID."'");
+	$count = mysqli_num_rows($result);
+	if($count>=1) { //If entry in event exists 
+		echo "<br>Check: Entry exists for event";
+		echo '<div class="success">Success</div>';
+	} else {
+		echo "<br>Check: Entry does not exist for event";		
+		echo '<div class="failure">Failure</div>';		
+	}
+	echo '</div>';
+
+	//Test 7: Retract submission
+	$_POST["entryID"]=$entryID;
+	echo '<div class="test"><h3>#7 Retract Event Submission</h1><br>Response: ';
+	include 'process_retract.php';
+	$result = $mysqli -> query("SELECT * FROM tblentry WHERE `entryID` ='".$entryID."'");
+	$count = mysqli_num_rows($result);
+	if($count>=1) { //If entry still exists 
+		echo "<br>Check: Entry still exists for event";
+		echo '<div class="failure">Failure</div>';		
+	} else {
+		echo "<br>Check: Entry does not exist for event";		
+		echo '<div class="success">Success</div>';
+	}
+	echo '</div>';
+
+	//Test 8: Delete event
+	echo '<div class="test"><h3>#8 Delete Event</h1><br>Response: ';
 	include 'process_event_delete.php';
 	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionTitle` ='TestEvent'");
 	$count = mysqli_num_rows($result);
