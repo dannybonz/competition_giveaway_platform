@@ -87,7 +87,9 @@ function displayLoad() { //Used to display loading screen
 $(window).on("load", function() {
 	$("body").on("click",".event-container,#events,#edit_event,#submit-entry,#save_event,#event_management,#delete", function(event){ //Add event listener to trigger loading screens after certain actions
 		if (!(event.ctrlKey)) { //Not holding control (new tab)
-			displayLoad(); //Display loading screen
+			if (!(event.shiftKey)) { //Not holding shift (new window)
+				displayLoad(); //Display loading screen
+			}
 		};
 	});
 });
