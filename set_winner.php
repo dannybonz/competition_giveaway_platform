@@ -1,6 +1,5 @@
 <?php
 	//This page is used when a business account manually chooses upon a winner. It takes the given input and records it in the winners table.
-	include 'header.php'; //Adds header to top of page and starts session
 	include 'functions.php'; 
 
 	//Users must be logged in as an admin or business account in order to manage an event
@@ -18,7 +17,11 @@
 				exit();
 			} else {
 				$result = $mysqli -> query("INSERT INTO `tblwinner` (`winnerID`,`competitionID`,`entryID`) VALUES ('".uniqid()."','".$_GET["event"]."','".$_GET["entry"]."')"); //Record new winner
-				header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page
+				if (isset($_POST["debug"])) {
+					echo "Complete";
+				} else {
+					header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page					
+				}
 			}
 		} else {
 			header("Location: error.php?e=2"); //If no match is found, redirect to error page
