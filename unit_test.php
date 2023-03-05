@@ -150,7 +150,7 @@
 	echo '</div>';
 
 	//Test 9: Select winner
-	echo '<div class="test"><h3>#9 Set Winner</h1><br>Response: ';
+	echo '<div class="test"><h3>#9 Select Winner</h1><br>Response: ';
 	$_GET["entry"]=$entryID;
 	include 'set_winner.php';
 	$result = $mysqli -> query("SELECT * FROM tblwinner WHERE `entryID`='".$entryID."'");
@@ -164,9 +164,24 @@
 	}
 	echo '</div>';
 
-	//Test 10: Retract submission
+	//Test 10: Reset winner
+	echo '<div class="test"><h3>#10 Reset Winner</h1><br>Response: ';
+	$_GET["winner"]=$winnerID;
+	include 'reset_winner.php';
+	$result = $mysqli -> query("SELECT * FROM tblwinner WHERE `entryID`='".$entryID."'");
+	$count = mysqli_num_rows($result);
+	if($count>=1) { //If winner exists
+		echo "<br>Check: Winner exists";
+		echo '<div class="failure">Failure</div>';		
+	} else {
+		echo "<br>Check: Winner does not exist";		
+		echo '<div class="success">Success</div>';
+	}
+	echo '</div>';
+
+	//Test 11: Retract submission
 	$_POST["entryID"]=$entryID;
-	echo '<div class="test"><h3>#10 Retract Event Submission</h1><br>Response: ';
+	echo '<div class="test"><h3>#11 Retract Event Submission</h1><br>Response: ';
 	include 'process_retract.php';
 	$result = $mysqli -> query("SELECT * FROM tblentry WHERE `entryID`='".$entryID."'");
 	$count = mysqli_num_rows($result);
@@ -179,8 +194,8 @@
 	}
 	echo '</div>';
 
-	//Test 11: Delete event
-	echo '<div class="test"><h3>#11 Delete Event</h1><br>Response: ';
+	//Test 12: Delete event
+	echo '<div class="test"><h3>#12 Delete Event</h1><br>Response: ';
 	include 'process_event_delete.php';
 	$result = $mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionTitle`='TestEvent'");
 	$count = mysqli_num_rows($result);

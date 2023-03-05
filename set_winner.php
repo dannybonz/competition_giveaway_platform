@@ -16,7 +16,8 @@
 				header("Location: error.php?e=1"); //Redirect to error page
 				exit();
 			} else {
-				$result = $mysqli -> query("INSERT INTO `tblwinner` (`winnerID`,`competitionID`,`entryID`) VALUES ('".uniqid()."','".$_GET["event"]."','".$_GET["entry"]."')"); //Record new winner
+				$winnerID = uniqid();
+				$result = $mysqli -> query("INSERT INTO `tblwinner` (`winnerID`,`competitionID`,`entryID`) VALUES ('".$winnerID."','".$_GET["event"]."','".$_GET["entry"]."')"); //Record new winner
 				if (isset($_POST["debug"])) {
 					echo "Complete";
 				} else {

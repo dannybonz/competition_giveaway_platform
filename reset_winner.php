@@ -1,6 +1,8 @@
 <?php
-	include 'header.php'; //Adds header to top of page and starts session
-	include 'functions.php';
+	session_start();
+	if (!isset($_POST["debug"])) { //Necessary for unit test to work
+		include 'functions.php';
+	}
 
 	//Users must be logged in as an admin or business account in order to manage an event
 	if ((!isset($_SESSION["accountDetails"])) or (!($_SESSION["accountDetails"]["accountType"]=="Business" or $_SESSION["accountDetails"]["accountType"]=="Admin"))) {
@@ -15,7 +17,11 @@
 			exit();
 		} else {
 			$result = $mysqli -> query("DELETE FROM `tblwinner` WHERE `winnerID` = '".$_GET["winner"]."' AND `competitionID` ='".$_GET["event"]."'"); //Delete the record of this entry winning
-			header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page			
+			if (isset($_POST["debug"])) {
+				echo "Complete";
+			} else {
+				header ('Location: manage_event.php?event='.$_GET["event"]); //Redirect to relevant event management page			
+			}
 		}
 	}
 ?>
