@@ -15,8 +15,11 @@
 		session_start(); //Start session
 		$_SESSION['loggedIn'] = "true"; //Set loggedin session value to true
 		$_SESSION["accountDetails"]=$row; //Store account details as session value
-		header('location:index.php');
-		$_SESSION["mysqli"]=$mysqli;
+		if (isset($_POST["debug"])) {
+			echo "Complete";
+		} else {
+			header('location:index.php');
+		}
 	}
 	else //If there is not a match, i.e. incorrect combination
 	{
