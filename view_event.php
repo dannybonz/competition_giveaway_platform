@@ -59,7 +59,7 @@
 					} else {
 						echo '<form method="post" action="process_entry.php">
 						<p class="event-page-paragraph">Submit your entry using the form below.</p>
-						<p>The event organiser will be provided with your name and email address.</p>';
+						<p>The event organiser will be provided with your name and be able<br>to contact you through CompEe. Your email address will not be shared.</p>';
 						if ($row["competitionTextRequirement"]!=0) {
 						echo '<textarea id="text" name="text" maxlength="'.$row["competitionTextRequirement"].'" placeholder="Write additional text to be included with your entry here..." required class="textarea_input"></textarea><br>';
 						}

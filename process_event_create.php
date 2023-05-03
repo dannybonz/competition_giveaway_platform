@@ -20,7 +20,7 @@
 
 		if ($event=="0") { //If this is a brand new event
 			$competitionID = uniqid(); 
-			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionImagePath`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','None','".$deadline."','None','".$text."','".$start."')"); 
+			$result = $mysqli -> query("INSERT INTO `tblcompetition` (`competitionRules`,`competitionWinners`,`competitionWinMethod`,`competitionID`,`accountID`,`competitionTitle`,`competitionDescription`,`competitionEndDate`,`competitionFileRequirement`,`competitionTextRequirement`,`competitionStartDate`) VALUES ('".$rules."','".$winners."','".$win."','".$competitionID."','".$accountID."','".$title."','".$description."','".$deadline."','None','".$text."','".$start."')"); 
 		} else {
 			$competitionID = $event;
 

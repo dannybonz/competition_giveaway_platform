@@ -18,7 +18,7 @@
 		if (isset($_POST["debug"])) {
 			echo "Complete";
 		} else {
-			header('location:index.php');
+			header('location:events.php');
 		}
 	}
 	else //If there is not a match, i.e. incorrect combination

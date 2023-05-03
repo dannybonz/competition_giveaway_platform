@@ -76,9 +76,9 @@
 				while($row = $result->fetch_assoc()) {  //Loop through each event
 					$total_entries+=1;
 					$winner_result=$mysqli -> query("SELECT * FROM tblwinner WHERE `competitionID` ='".$row["competitionID"]."' AND `entryID` ='".$row["entryID"]."'"); //Check if the entry was a winner
+					$comp_result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$row["competitionID"]."'"); //Get event info
+					$comp_info=mysqli_fetch_assoc($comp_result);
 					if (mysqli_num_rows($winner_result)) { //If the user won this event
-						$comp_result=$mysqli -> query("SELECT * FROM tblcompetition WHERE `competitionID` ='".$row["competitionID"]."'"); //Get event info
-						$comp_info=mysqli_fetch_assoc($comp_result);
 						$events_won+=1;	 
 						$bs_column+=1;
 						if ($bs_column>3) {

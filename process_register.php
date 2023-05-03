@@ -56,7 +56,6 @@
 		}
 	}
 	
-	$_POST["debug"]="true";
 	if ($valid==true) {
 		$salt="dc0b2dd4f78221adac85386e9ee57a9047562d5"; //Salt used for encryption 
 		$password = md5($password.$salt); //Encrypt with md5 
